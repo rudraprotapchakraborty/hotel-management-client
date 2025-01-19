@@ -54,6 +54,20 @@ const Navbar = () => {
           Menu
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="order"
+          onClick={() => setActiveLink('order')}
+          className={`${activeLink === 'order'
+            ? 'text-orange-500' // Active link color
+            : darkMode
+              ? 'text-gray-300 hover:text-orange-300'
+              : 'text-gray-700 hover:text-orange-500'
+            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+        >
+          Order
+        </NavLink>
+      </li>
     </>
   );
 
