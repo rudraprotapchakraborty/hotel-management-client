@@ -2,12 +2,18 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const [activeLink, setActiveLink] = useState('');
   const [scrolling, setScrolling] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  const handleLogOut = () => {
+    logOut();
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +83,6 @@ const Navbar = () => {
         } ${darkMode ? 'bg-gray-900 bg-opacity-90' : 'bg-white bg-opacity-90'}`}
     >
       <div className="flex justify-between items-center">
-        {/* Left Section - Logo */}
         <NavLink>
           <button
             className={`text-sm md:text-2xl font-bold transition-transform duration-300 transform hover:scale-105 ${darkMode ? 'text-orange-300 hover:text-orange-400' : 'text-orange-500 hover:text-orange-600'
@@ -94,14 +99,11 @@ const Navbar = () => {
           </button>
         </NavLink>
 
-        {/* Centered Menu for Desktop */}
         <div className="hidden lg:flex">
           <ul className="flex font-bold gap-10">{links}</ul>
         </div>
 
-        {/* Right Section - Theme Toggle, Login/Register, User Profile */}
         <div className="flex items-center md:gap-4">
-          {/* Theme Toggle Button */}
           <button
             onClick={toggleDarkMode}
             className={`p-1.5 md:p-2 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 ${darkMode ? 'bg-orange-700 hover:bg-orange-600 text-white' : 'bg-orange-500 hover:bg-orange-600 text-white'
@@ -109,9 +111,22 @@ const Navbar = () => {
           >
             {darkMode ? <FaMoon className="text-sm md:text-xl" /> : <FaSun className="text-sm md:text-xl" />}
           </button>
+
+          {
+            user ?
+              <>
+                <img className="w-[40px] h-[40px] mr-2 rounded-full" src={user?.photoURL} alt="" />
+                <span>{user?.displayName}</span>
+                <button onClick={handleLogOut} className="btn ml-2">Logout</button>
+              </>
+              :
+              <>
+                <NavLink to="/login"><button className="btn mr-2">Login</button></NavLink>
+                <><NavLink to="/signup"><button className="btn">Sign Up</button></NavLink></>
+              </>
+          }
         </div>
 
-        {/* Hamburger Menu for Mobile */}
         <div className="lg:hidden flex items-center">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="btn btn-ghost">
             <svg
