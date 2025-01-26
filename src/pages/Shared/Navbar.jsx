@@ -73,7 +73,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/order"
+          to="/upcoming-meals"
           onClick={() => setActiveLink("order")}
           className={`${activeLink === "order"
             ? "text-orange-500"
@@ -82,7 +82,7 @@ const Navbar = () => {
               : "text-gray-700 hover:text-orange-500"
             } transition-transform duration-200 ease-in-out transform hover:scale-105`}
         >
-          Order
+          Upcoming Meals
         </NavLink>
       </li>
     </>

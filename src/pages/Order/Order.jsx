@@ -1,12 +1,11 @@
 import { Helmet } from "react-helmet-async";
-import Cover from "../Shared/Cover";
-import orderImg from "../../assets/shop/banner2.jpg"
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import { useEffect, useState } from "react";
 import useMeal from "../../hooks/useMeal";
 import OrderTab from "./OrderTab";
 import { useParams } from "react-router-dom";
+import SectionTitle from "../../components/SectionTitle";
 
 const Order = () => {
 
@@ -31,7 +30,7 @@ const Order = () => {
             <Helmet>
                 <title>Hotel Management | Order</title>
             </Helmet>
-            <Cover img={orderImg} title={"OUR SHOP"}></Cover>
+            <SectionTitle heading={"Meals Category"} subHeading={"---Explore all the categories---"} />
             <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                     <Tab>SALAD</Tab>
