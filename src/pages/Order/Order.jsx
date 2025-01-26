@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import { useEffect, useState } from "react";
@@ -27,9 +26,6 @@ const Order = () => {
 
     return (
         <div>
-            <Helmet>
-                <title>Hotel Management | Order</title>
-            </Helmet>
             <SectionTitle heading={"Meals Category"} subHeading={"---Explore all the categories---"} />
             <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>

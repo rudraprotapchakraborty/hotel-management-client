@@ -1,6 +1,4 @@
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -11,6 +9,9 @@ import MealDetails from "../pages/MealDetails/MealDetails";
 import Dashboard from "../layout/Dashboard";
 import Cart from "../pages/Dashboard/Cart";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../pages/Dashboard/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AddItems from "../pages/Dashboard/AddItems";
 
 export const router = createBrowserRouter([
   {
@@ -18,39 +19,61 @@ export const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       {
-        path: '/',
-        element: <Home></Home>
+        path: "/",
+        element: <Home></Home>,
       },
       {
-        path: 'meals',
-        element: <Meals></Meals>
+        path: "meals",
+        element: <Meals></Meals>,
       },
       {
-        path: 'meal-details',
-        element: <MealDetails></MealDetails>
+        path: "meal-details",
+        element: <MealDetails></MealDetails>,
       },
       {
-        path: 'upcoming-meals',
-        element: <UpcomingMeals></UpcomingMeals>
+        path: "upcoming-meals",
+        element: <UpcomingMeals></UpcomingMeals>,
       },
       {
-        path: 'login',
-        element: <Login></Login>
+        path: "login",
+        element: <Login></Login>,
       },
       {
-        path: 'signup',
-        element: <SignUp></SignUp>
-      }
-    ]
+        path: "signup",
+        element: <SignUp></SignUp>,
+      },
+    ],
   },
   {
-    path: 'dashboard',
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
+      //normal user routes
       {
-        path: 'cart',
-        element: <Cart></Cart>
-      }
-    ]
-  }
+        path: "cart",
+        element: <Cart></Cart>,
+      },
+      //admin only routes
+      {
+        path: "addItems",
+        element: (
+          <AdminRoute>
+            <AddItems></AddItems>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
 ]);
