@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import useAxiosPublic from "./useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const useMeal = () => {
+  const axiosPublic = useAxiosPublic();
 
-    const [meal, setMeal] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const {
+    data: meal = [],
+    isPending: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["meal"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/meal");
+      return res.data;
+    },
+  });
 
-    useEffect(() => {
-        fetch('http://localhost:5000/meal')
-            .then(res => res.json())
-            .then(data => {
-                setMeal(data)
-                setLoading(false)
-            })
-    }, []);
-
-    return [meal, loading];
+  return [meal, loading, refetch];
 };
 
 export default useMeal;
