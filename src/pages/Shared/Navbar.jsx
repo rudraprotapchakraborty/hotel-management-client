@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [activeLink, setActiveLink] = useState("");
   const [scrolling, setScrolling] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [ismealOpen, setIsmealOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [nameVisible, setNameVisible] = useState(false);
   const profileRef = useRef(null);
@@ -59,16 +59,16 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/menu"
-          onClick={() => setActiveLink("menu")}
-          className={`${activeLink === "menu"
+          to="/meals"
+          onClick={() => setActiveLink("meal")}
+          className={`${activeLink === "meal"
             ? "text-orange-500"
             : darkMode
               ? "text-gray-300 hover:text-orange-300"
               : "text-gray-700 hover:text-orange-500"
             } transition-transform duration-200 ease-in-out transform hover:scale-105`}
         >
-          Menu
+          Meals
         </NavLink>
       </li>
       <li>
@@ -197,10 +197,10 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile meal */}
         <div className="lg:hidden flex items-center">
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsmealOpen(!ismealOpen)}
             className="btn btn-ghost"
           >
             <svg
@@ -220,7 +220,7 @@ const Navbar = () => {
             </svg>
           </button>
 
-          {isMenuOpen && (
+          {ismealOpen && (
             <ul
               className={`absolute right-4 top-12 p-4 space-y-4 rounded-lg shadow-xl font-bold z-50 ${darkMode
                 ? "bg-black bg-opacity-90 text-gray-300"

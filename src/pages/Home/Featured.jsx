@@ -5,7 +5,7 @@ import './Featured.css';
 const Featured = () => {
     return (
         <div className="featured-item bg-fixed text-white pt-8 my-10">
-            <SectionTitle heading={"Featured Menu"} subHeading={"Check it out"}/>
+            <SectionTitle heading={"Featured meal"} subHeading={"Check it out"}/>
             <div className="md:flex justify-center items-center bg-[#151515] bg-opacity-70 pb-20 pt-12 px-36">
                 <div>
                     <img src={featuredImg} alt="" />

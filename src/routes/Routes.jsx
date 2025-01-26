@@ -3,10 +3,11 @@ import {
 } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
-import Menu from "../pages/Menu/Menu";
+import Meals from "../pages/meal/Meals";
 import Order from "../pages/Order/Order";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +19,8 @@ export const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
-        path: 'menu',
-        element: <Menu></Menu>
+        path: 'meals',
+        element: <Meals></Meals>
       },
       {
         path: 'order',
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'order/:category',
-        element: <Order></Order>
+        element: <PrivateRoute><Order></Order></PrivateRoute>
       },
       {
         path: 'login',

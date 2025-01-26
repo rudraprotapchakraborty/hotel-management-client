@@ -2,8 +2,8 @@ import { Helmet } from "react-helmet-async";
 import Banner from "./Banner";
 import Category from "./Category";
 import Featured from "./Featured";
-import PopularMenu from "./PopularMenu";
 import Testimonials from "./Testimonials";
+import PopularMeal from "./PopularMeal";
 
 const Home = () => {
     return (
@@ -13,7 +13,7 @@ const Home = () => {
             </Helmet>
             <Banner></Banner>
             <Category></Category>
-            <PopularMenu></PopularMenu>
+            <PopularMeal></PopularMeal>
             <Featured></Featured>
             <Testimonials></Testimonials>
         </div>

@@ -1,5 +1,5 @@
 
-const MenuItem = ({item}) => {
+const MealItem = ({item}) => {
 
     const {image, price, name, recipe} = item;
 
@@ -15,4 +15,4 @@ const MenuItem = ({item}) => {
     );
 };
 
-export default MenuItem;
+export default MealItem;
