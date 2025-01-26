@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import PropTypes from 'prop-types';
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -82,6 +83,16 @@ const FoodCard = ({ item }) => {
             </div>
         </div>
     );
+};
+
+FoodCard.propTypes = {
+    item: PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        recipe: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default FoodCard;

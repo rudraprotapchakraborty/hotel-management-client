@@ -1,17 +1,20 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { FaMoon, FaSun, FaUserCircle } from "react-icons/fa";
+import { FaMoon, FaShoppingCart, FaSun, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [activeLink, setActiveLink] = useState("");
   const [scrolling, setScrolling] = useState(false);
-  const [ismealOpen, setIsmealOpen] = useState(false);
+  const [isMealOpen, setIsMealOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [nameVisible, setNameVisible] = useState(false);
   const profileRef = useRef(null);
+
+  const [cart] = useCart();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -47,12 +50,13 @@ const Navbar = () => {
         <NavLink
           to="/"
           onClick={() => setActiveLink("home")}
-          className={`${activeLink === "home"
-            ? "text-orange-500"
-            : darkMode
+          className={`${
+            activeLink === "home"
+              ? "text-orange-500"
+              : darkMode
               ? "text-gray-300 hover:text-orange-300"
               : "text-gray-700 hover:text-orange-500"
-            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
         >
           Home
         </NavLink>
@@ -61,12 +65,13 @@ const Navbar = () => {
         <NavLink
           to="/meals"
           onClick={() => setActiveLink("meal")}
-          className={`${activeLink === "meal"
-            ? "text-orange-500"
-            : darkMode
+          className={`${
+            activeLink === "meal"
+              ? "text-orange-500"
+              : darkMode
               ? "text-gray-300 hover:text-orange-300"
               : "text-gray-700 hover:text-orange-500"
-            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
         >
           Meals
         </NavLink>
@@ -75,46 +80,59 @@ const Navbar = () => {
         <NavLink
           to="/upcoming-meals"
           onClick={() => setActiveLink("order")}
-          className={`${activeLink === "order"
-            ? "text-orange-500"
-            : darkMode
+          className={`${
+            activeLink === "order"
+              ? "text-orange-500"
+              : darkMode
               ? "text-gray-300 hover:text-orange-300"
               : "text-gray-700 hover:text-orange-500"
-            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
         >
           Upcoming Meals
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/">
+          <button className="btn">
+            <FaShoppingCart className="mr-2"></FaShoppingCart>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </NavLink>
+      </li>
     </>
   );
-  
+
   return (
     <div
-      className={`sticky z-50 backdrop-blur-md shadow-xl rounded-full w-11/12 mx-auto md:px-8 md:py-4 transition-all duration-300 ${scrolling ? "top-0" : "top-4"
-        } ${darkMode ? "bg-gray-900 bg-opacity-90" : "bg-white bg-opacity-90"}`}
+      className={`sticky z-50 backdrop-blur-md shadow-xl rounded-full w-11/12 mx-auto md:px-8 md:py-4 transition-all duration-300 ${
+        scrolling ? "top-0" : "top-4"
+      } ${darkMode ? "bg-gray-900 bg-opacity-90" : "bg-white bg-opacity-90"}`}
     >
       <div className="flex justify-between items-center">
         {/* Brand Logo */}
         <NavLink>
           <button
-            className={`text-sm md:text-2xl font-bold transition-transform duration-300 transform hover:scale-105 ${darkMode
-              ? "text-orange-300 hover:text-orange-400"
-              : "text-orange-500 hover:text-orange-600"
-              }`}
+            className={`text-sm md:text-2xl font-bold transition-transform duration-300 transform hover:scale-105 ${
+              darkMode
+                ? "text-orange-300 hover:text-orange-400"
+                : "text-orange-500 hover:text-orange-600"
+            }`}
           >
             <div className="flex items-center gap-2">
               <img src="" className="w-9" alt="" />
               <p>
                 <span
-                  className={`${darkMode ? "text-orange-500" : "text-orange-700"
-                    }`}
+                  className={`${
+                    darkMode ? "text-orange-500" : "text-orange-700"
+                  }`}
                 >
                   &lt;H
                 </span>
                 otel Management
                 <span
-                  className={`${darkMode ? "text-orange-500" : "text-orange-700"
-                    }`}
+                  className={`${
+                    darkMode ? "text-orange-500" : "text-orange-700"
+                  }`}
                 >
                   /&gt;
                 </span>
@@ -125,7 +143,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex">
-          <ul className="flex font-bold gap-10">{links}</ul>
+          <ul className="flex font-bold gap-10 items-center justify-center">{links}</ul>
         </div>
 
         {/* Dark Mode Toggle & User Actions */}
@@ -133,10 +151,11 @@ const Navbar = () => {
           {/* Dark Mode Button */}
           <button
             onClick={toggleDarkMode}
-            className={`p-1.5 md:p-2 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 ${darkMode
-              ? "bg-orange-700 hover:bg-orange-600 text-white"
-              : "bg-orange-500 hover:bg-orange-600 text-white"
-              }`}
+            className={`p-1.5 md:p-2 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 ${
+              darkMode
+                ? "bg-orange-700 hover:bg-orange-600 text-white"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
+            }`}
           >
             {darkMode ? (
               <FaMoon className="text-sm md:text-xl" />
@@ -166,8 +185,9 @@ const Navbar = () => {
 
                 {nameVisible && (
                   <span
-                    className={`absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs px-3 py-1 rounded-md ${darkMode ? "bg-gray-800" : "bg-gray-900"
-                      }`}
+                    className={`absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs px-3 py-1 rounded-md ${
+                      darkMode ? "bg-gray-800" : "bg-gray-900"
+                    }`}
                   >
                     {user?.displayName}
                   </span>
@@ -200,13 +220,14 @@ const Navbar = () => {
         {/* Mobile meal */}
         <div className="lg:hidden flex items-center">
           <button
-            onClick={() => setIsmealOpen(!ismealOpen)}
+            onClick={() => setIsMealOpen(!isMealOpen)}
             className="btn btn-ghost"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 ${darkMode ? "text-gray-300" : "text-gray-700"
-                }`}
+              className={`h-6 w-6 ${
+                darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -220,12 +241,13 @@ const Navbar = () => {
             </svg>
           </button>
 
-          {ismealOpen && (
+          {isMealOpen && (
             <ul
-              className={`absolute right-4 top-12 p-4 space-y-4 rounded-lg shadow-xl font-bold z-50 ${darkMode
-                ? "bg-black bg-opacity-90 text-gray-300"
-                : "bg-white text-gray-700"
-                }`}
+              className={`absolute right-4 top-12 p-4 space-y-4 rounded-lg shadow-xl font-bold z-50 ${
+                darkMode
+                  ? "bg-black bg-opacity-90 text-gray-300"
+                  : "bg-white text-gray-700"
+              }`}
             >
               {links}
             </ul>
