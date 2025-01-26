@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const MealItem = ({item}) => {
 
@@ -9,6 +10,7 @@ const MealItem = ({item}) => {
             <div>
                 <h3 className="uppercase">{name} ------------------</h3>
                 <p>{recipe}</p>
+                <Link to="/meal-details" className="btn">Details</Link>
             </div>
             <p className="text-[#BB8506]">${price}</p>
         </div>

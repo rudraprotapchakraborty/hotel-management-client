@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Meals from "../pages/Meal/Meals";
 import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
+import MealDetails from "../pages/MealDetails/MealDetails";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: 'meals',
         element: <Meals></Meals>
+      },
+      {
+        path: 'meal-details',
+        element: <MealDetails></MealDetails>
       },
       {
         path: 'upcoming-meals',
