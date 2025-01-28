@@ -34,59 +34,61 @@ const ManageItems = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
       <SectionTitle
         heading="MANAGE ITEMS"
-        subHeading="---What's cooking?---"
+        subHeading="--- What's cooking? ---"
       ></SectionTitle>
-      <div>
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Image</th>
-                <th>Item Name</th>
-                <th>Price</th>
-                <th>Update</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {meal.map((item, index) => (
-                <tr key={item._id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img src={item.image} alt={item.name} />
-                        </div>
+
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-8">
+        <table className="table w-full text-sm text-gray-900 dark:text-white transition-all duration-300">
+          <thead>
+            <tr className="bg-gray-200 dark:bg-gray-700">
+              <th className="py-3 px-4">#</th>
+              <th className="py-3 px-4">Image</th>
+              <th className="py-3 px-4">Item Name</th>
+              <th className="py-3 px-4 text-right">Price</th>
+              <th className="py-3 px-4">Update</th>
+              <th className="py-3 px-4">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {meal.map((item, index) => (
+              <tr
+                key={item._id}
+                className="hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200"
+              >
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={item.image} alt={item.name} />
                       </div>
                     </div>
-                  </td>
-                  <td>{item.name}</td>
-                  <td className="text-right">${item.price}</td>
-                  <td>
-                    <Link to={`/dashboard/updateItem/${item._id}`}>
-                      <button className="btn btn-ghost bg-orange-500 btn-lg">
-                        <FaEdit className="text-white" />
-                      </button>
-                    </Link>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleDeleteItem(item)}
-                      className="btn btn-ghost btn-lg"
-                    >
-                      <FaTrashAlt className="text-red-600" />
+                  </div>
+                </td>
+                <td className="py-3 px-4">{item.name}</td>
+                <td className="py-3 px-4 text-right">${item.price}</td>
+                <td className="py-3 px-4">
+                  <Link to={`/dashboard/updateItem/${item._id}`}>
+                    <button className="btn bg-orange-500 text-white hover:bg-orange-600 rounded-lg py-2 px-4">
+                      <FaEdit />
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </Link>
+                </td>
+                <td className="py-3 px-4">
+                  <button
+                    onClick={() => handleDeleteItem(item)}
+                    className="btn bg-red-500 text-white hover:bg-red-600 rounded-lg py-2 px-4"
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

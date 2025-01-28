@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import SectionTitle from "../../components/SectionTitle";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -75,46 +76,50 @@ const AllUsers = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-evenly my-4">
-        <h2 className="text-3xl">All users</h2>
-        <h2 className="text-3xl">Total users: {users.length}</h2>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
+      <SectionTitle
+        heading="ALL USERS"
+        subHeading="--- What's cooking? ---"
+      ></SectionTitle>
+
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-6">
+        <table className="table w-full text-sm text-gray-900 dark:text-white transition-all duration-300">
           <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
+            <tr className="bg-gray-200 dark:bg-gray-700">
+              <th className="py-3 px-4">#</th>
+              <th className="py-3 px-4">Name</th>
+              <th className="py-3 px-4">Email</th>
+              <th className="py-3 px-4">Role</th>
+              <th className="py-3 px-4">Action</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={user._id}>
-                <th>{index + 1}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
+              <tr
+                key={user._id}
+                className="hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200"
+              >
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">{user.name}</td>
+                <td className="py-3 px-4">{user.email}</td>
+                <td className="py-3 px-4">
                   {user.role === "admin" ? (
-                    "Admin"
+                    <span className="text-green-500 font-semibold">Admin</span>
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
-                      className="btn bg-orange-500 btn-lg"
+                      className="btn bg-orange-500 text-white hover:bg-orange-600 rounded-lg py-2 px-4"
                     >
                       <FaUsers className="text-white text-2xl" />
                     </button>
                   )}
                 </td>
-                <td>
+                <td className="py-3 px-4">
                   <button
                     onClick={() => handleDeleteUser(user)}
-                    className="btn btn-ghost btn-lg"
+                    className="btn bg-red-500 text-white hover:bg-red-600 rounded-lg py-2 px-4"
                   >
-                    <FaTrashAlt className="text-red-600" />
+                    <FaTrashAlt className="text-white text-2xl" />
                   </button>
                 </td>
               </tr>

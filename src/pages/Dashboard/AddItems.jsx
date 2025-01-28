@@ -12,6 +12,7 @@ const AddItems = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+
   const onSubmit = async (data) => {
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -41,35 +42,35 @@ const AddItems = () => {
   };
 
   return (
-    <div>
-      <SectionTitle
-        heading="ADD AN ITEM"
-        subHeading="---What's new?---"
-      ></SectionTitle>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-control w-full my-6">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
+      <SectionTitle heading="ADD AN ITEM" subHeading="--- What's new? ---" />
+
+      <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg mt-8 transition-all duration-300">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Recipe Name */}
+          <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Recipe Name*</span>
+              <span className="label-text text-gray-900 dark:text-white">Recipe Name*</span>
             </div>
             <input
               {...register("name", { required: true })}
               type="text"
               placeholder="Recipe Name"
               required
-              className="input input-bordered w-full"
+              className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
             />
           </label>
 
+          {/* Category and Price */}
           <div className="flex gap-6">
-            <label className="form-control w-full my-6">
+            <label className="form-control w-full">
               <div className="label">
-                <span className="label-text">Category Name*</span>
+                <span className="label-text text-gray-900 dark:text-white">Category Name*</span>
               </div>
               <select
                 defaultValue="default"
                 {...register("category", { required: true })}
-                className="select select-bordered w-full"
+                className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
               >
                 <option disabled value="default">
                   Select a category
@@ -81,40 +82,44 @@ const AddItems = () => {
                 <option value="drinks">Drinks</option>
               </select>
             </label>
-            <label className="form-control w-full my-6">
+
+            <label className="form-control w-full">
               <div className="label">
-                <span className="label-text">Price*</span>
+                <span className="label-text text-gray-900 dark:text-white">Price*</span>
               </div>
               <input
                 {...register("price", { required: true })}
                 type="number"
                 placeholder="Price"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
               />
             </label>
           </div>
 
-          <label className="form-control">
+          {/* Recipe Details */}
+          <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Recipe Details</span>
+              <span className="label-text text-gray-900 dark:text-white">Recipe Details</span>
             </div>
             <textarea
               {...register("recipe", { required: true })}
-              className="textarea textarea-bordered h-24"
+              className="textarea textarea-bordered h-24 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
               placeholder="Recipe Details"
             ></textarea>
           </label>
 
-          <div className="form-control w-full my-6">
+          {/* Image Upload */}
+          <div className="form-control w-full">
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full max-w-xs"
+              className="file-input w-full max-w-xs dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
             />
           </div>
 
-          <button className="btn">
-            Add Item <FaUtensils></FaUtensils>
+          {/* Submit Button */}
+          <button className="btn w-full bg-orange-600 text-white hover:bg-orange-700 transition-all duration-300 rounded-lg py-3 flex items-center justify-center">
+            Add Item <FaUtensils className="ml-2" />
           </button>
         </form>
       </div>
