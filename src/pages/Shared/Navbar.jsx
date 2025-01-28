@@ -1,253 +1,141 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { FaMoon, FaShoppingCart, FaSun, FaUserCircle } from "react-icons/fa";
+import { FaMoon, FaShoppingCart, FaSun } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import useCart from "../../hooks/useCart";
 import useAdmin from "../../hooks/useAdmin";
+import logo from "../../../public/logo.png";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
-  const [activeLink, setActiveLink] = useState("");
-  const [scrolling, setScrolling] = useState(false);
-  const [isMealOpen, setIsMealOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-  const [nameVisible, setNameVisible] = useState(false);
-  const profileRef = useRef(null);
-
   const [cart] = useCart();
+  const profileRef = useRef(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setNameVisible(false);
+        setProfileMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogOut = () => {
     logOut();
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolling(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const links = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          onClick={() => setActiveLink("home")}
-          className={`${
-            activeLink === "home"
-              ? "text-orange-500"
-              : darkMode
-              ? "text-gray-300 hover:text-orange-300"
-              : "text-gray-700 hover:text-orange-500"
-          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/meals"
-          onClick={() => setActiveLink("meals")}
-          className={`${
-            activeLink === "meals"
-              ? "text-orange-500"
-              : darkMode
-              ? "text-gray-300 hover:text-orange-300"
-              : "text-gray-700 hover:text-orange-500"
-          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
-        >
-          Meals
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/upcomingMeals"
-          onClick={() => setActiveLink("upcomingMeals")}
-          className={`${
-            activeLink === "upcomingMeals"
-              ? "text-orange-500"
-              : darkMode
-              ? "text-gray-300 hover:text-orange-300"
-              : "text-gray-700 hover:text-orange-500"
-          } transition-transform duration-200 ease-in-out transform hover:scale-105`}
-        >
-          Upcoming Meals
-        </NavLink>
-      </li>
-      {user && isAdmin && (
-        <li>
-          <NavLink
-            onClick={() => setActiveLink("dashboard")}
-            className={`${
-              activeLink === "dashboard"
-                ? "text-orange-500"
-                : darkMode
-                ? "text-gray-300 hover:text-orange-300"
-                : "text-gray-700 hover:text-orange-500"
-            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
-            to="/dashboard/adminHome"
-          >
-            Dashboard
-          </NavLink>
-        </li>
-      )}
-      {user && !isAdmin && (
-        <li>
-          <NavLink
-            onClick={() => setActiveLink("order")}
-            className={`${
-              activeLink === "order"
-                ? "text-orange-500"
-                : darkMode
-                ? "text-gray-300 hover:text-orange-300"
-                : "text-gray-700 hover:text-orange-500"
-            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
-            to="/dashboard/userHome"
-          >
-            Dashboard
-          </NavLink>
-        </li>
-      )}
-      <li>
-        <NavLink to="/dashboard/cart">
-          <button className="btn">
-            <FaShoppingCart className="mr-2"></FaShoppingCart>
-            <div className="badge badge-secondary">+{cart.length}</div>
-          </button>
-        </NavLink>
-      </li>
-    </>
-  );
+  const navLinks = [
+    { path: "/", label: "Home" },
+    { path: "/meals", label: "Meals" },
+    { path: "/upcomingMeals", label: "Upcoming Meals" },
+    ...(user && isAdmin
+      ? [{ path: "/dashboard/adminHome", label: "Dashboard" }]
+      : user
+      ? [{ path: "/dashboard/userHome", label: "Dashboard" }]
+      : []),
+  ];
 
   return (
     <div
-      className={`sticky z-50 backdrop-blur-md shadow-xl rounded-full w-11/12 mx-auto md:px-8 md:py-4 transition-all duration-300 ${
-        scrolling ? "top-0" : "top-4"
-      } ${darkMode ? "bg-gray-900 bg-opacity-90" : "bg-white bg-opacity-90"}`}
+      className={`sticky top-0 z-50 w-full backdrop-blur-md shadow-md transition-all duration-300 ${
+        darkMode ? "bg-gray-900 bg-opacity-95" : "bg-white bg-opacity-95"
+      }`}
     >
-      <div className="flex justify-between items-center">
-        {/* Brand Logo */}
-        <NavLink>
-          <button
-            className={`text-sm md:text-2xl font-bold transition-transform duration-300 transform hover:scale-105 ${
-              darkMode
-                ? "text-orange-300 hover:text-orange-400"
-                : "text-orange-500 hover:text-orange-600"
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        {/* Logo */}
+        <NavLink to="/" className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="w-9" />
+          <h1
+            className={`text-lg md:text-2xl font-bold ${
+              darkMode ? "text-orange-400" : "text-orange-500"
             }`}
           >
-            <div className="flex items-center gap-2">
-              <img src="" className="w-9" alt="" />
-              <p>
-                <span
-                  className={`${
-                    darkMode ? "text-orange-500" : "text-orange-700"
-                  }`}
-                >
-                  &lt;H
-                </span>
-                otel Management
-                <span
-                  className={`${
-                    darkMode ? "text-orange-500" : "text-orange-700"
-                  }`}
-                >
-                  /&gt;
-                </span>
-              </p>
-            </div>
-          </button>
+            &lt;Hotel Management/&gt;
+          </h1>
         </NavLink>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex">
-          <ul className="flex font-bold gap-10 items-center justify-center">
-            {links}
-          </ul>
-        </div>
+        <ul className="hidden lg:flex gap-8 items-center font-semibold">
+          {navLinks.map(({ path, label }) => (
+            <li key={path}>
+              <NavLink
+                to={path}
+                className={`transition duration-200 ease-in-out hover:scale-105 ${
+                  darkMode
+                    ? "text-gray-300 hover:text-orange-400"
+                    : "text-gray-700 hover:text-orange-500"
+                }`}
+              >
+                {label}
+              </NavLink>
+            </li>
+          ))}
+          {user && (
+            <li>
+              <NavLink to="/dashboard/cart">
+                <button className="relative flex items-center gap-2 px-4 py-2 rounded-lg shadow-md bg-orange-500 hover:bg-orange-600 text-white transition-all">
+                  <FaShoppingCart />
+                  <span className="badge badge-secondary">{cart.length}</span>
+                </button>
+              </NavLink>
+            </li>
+          )}
+        </ul>
 
-        {/* Dark Mode Toggle & User Actions */}
-        <div className="flex items-center md:gap-4">
-          {/* Dark Mode Button */}
+        {/* Actions: Dark Mode & Profile */}
+        <div className="flex items-center gap-4">
+          {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
-            className={`p-1.5 md:p-2 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 ${
+            className={`p-2 rounded-full shadow-md transition-all ${
               darkMode
-                ? "bg-orange-700 hover:bg-orange-600 text-white"
-                : "bg-orange-500 hover:bg-orange-600 text-white"
+                ? "bg-orange-600 text-white hover:bg-orange-500"
+                : "bg-orange-400 text-white hover:bg-orange-500"
             }`}
           >
-            {darkMode ? (
-              <FaMoon className="text-sm md:text-xl" />
-            ) : (
-              <FaSun className="text-sm md:text-xl" />
-            )}
+            {darkMode ? <FaMoon /> : <FaSun />}
           </button>
 
-          {/* User Info */}
+          {/* Profile Section */}
           {user ? (
-            <div className="flex items-center relative">
-              <div ref={profileRef} className="flex items-center relative">
-                {/* Conditional rendering for profile photo or icon */}
-                {user?.photoURL ? (
-                  <img
-                    className="w-[40px] h-[40px] mr-2 rounded-full cursor-pointer"
-                    src={user?.photoURL}
-                    alt="User Avatar"
-                    onClick={() => setNameVisible((prev) => !prev)} // Toggle visibility on click
-                  />
-                ) : (
-                  <FaUserCircle
-                    className="w-[40px] h-[40px] mr-2 cursor-pointer text-gray-500"
-                    onClick={() => setNameVisible((prev) => !prev)} // Toggle visibility on click
-                  />
-                )}
-
-                {nameVisible && (
-                  <span
-                    className={`absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs px-3 py-1 rounded-md ${
-                      darkMode ? "bg-gray-800" : "bg-gray-900"
-                    }`}
+            <div className="relative" ref={profileRef}>
+              <img
+                src={user.photoURL || ""}
+                alt="Profile"
+                className="w-10 h-10 rounded-full cursor-pointer"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              />
+              {profileMenuOpen && (
+                <div
+                  className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 z-50 ${
+                    darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"
+                  }`}
+                >
+                  <span className="block px-4 py-2 text-sm">{user.displayName}</span>
+                  <button
+                    onClick={handleLogOut}
+                    className="w-full text-left px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
                   >
-                    {user?.displayName}
-                  </span>
-                )}
-              </div>
-
-              <button
-                onClick={handleLogOut}
-                className="btn ml-2 bg-orange-500 hover:bg-orange-600 text-white border-none"
-              >
-                Logout
-              </button>
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
-            <div className="flex">
+            <div className="flex gap-2">
               <NavLink to="/login">
-                <button className="btn mr-2 bg-orange-500 hover:bg-orange-600 text-white border-none">
+                <button className="px-4 py-2 rounded-lg shadow-md bg-orange-500 text-white hover:bg-orange-600">
                   Login
                 </button>
               </NavLink>
               <NavLink to="/signup">
-                <button className="btn bg-orange-500 hover:bg-orange-600 text-white border-none">
+                <button className="px-4 py-2 rounded-lg shadow-md bg-orange-500 text-white hover:bg-orange-600">
                   Sign Up
                 </button>
               </NavLink>
@@ -255,11 +143,11 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile meal */}
-        <div className="lg:hidden flex items-center">
+        {/* Mobile Menu */}
+        <div className="lg:hidden">
           <button
-            onClick={() => setIsMealOpen(!isMealOpen)}
-            className="btn btn-ghost"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 rounded-md shadow-md"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -278,16 +166,23 @@ const Navbar = () => {
               />
             </svg>
           </button>
-
-          {isMealOpen && (
+          {isMenuOpen && (
             <ul
-              className={`absolute right-4 top-12 p-4 space-y-4 rounded-lg shadow-xl font-bold z-50 ${
-                darkMode
-                  ? "bg-black bg-opacity-90 text-gray-300"
-                  : "bg-white text-gray-700"
+              className={`absolute right-4 top-16 w-56 rounded-lg shadow-md py-2 ${
+                darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"
               }`}
             >
-              {links}
+              {navLinks.map(({ path, label }) => (
+                <li key={path}>
+                  <NavLink
+                    to={path}
+                    className="block px-4 py-2 transition hover:bg-orange-500 hover:text-white rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           )}
         </div>
