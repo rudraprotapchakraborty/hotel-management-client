@@ -1,10 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Cover from "../Shared/Cover";
 import SectionTitle from "../../components/SectionTitle";
 import MealsCategory from "./MealsCategory";
-import mealImg from "../../assets/meal/banner3.jpg";
 
 const Meals = () => {
   const [meals, setMeals] = useState([]);
@@ -48,8 +46,6 @@ const Meals = () => {
       <Helmet>
         <title>Hotel Management | Meals</title>
       </Helmet>
-      <Cover img={mealImg} title={"OUR MEALS"} />
-
       {/* Filters and Search */}
       <div className="p-6 bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg shadow-md">
         <div className="flex flex-wrap justify-between items-center gap-4">
