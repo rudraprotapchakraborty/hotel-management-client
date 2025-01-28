@@ -2,7 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";     
 
 const Cart = () => {
   const [cart, refetch] = useCart();
