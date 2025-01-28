@@ -57,7 +57,7 @@ const Cart = () => {
         <h2 className="text-4xl text-gray-900 dark:text-white">Total Price: ${totalPrice.toFixed(2)}</h2>
         {cart.length ? (
           <Link to="/dashboard/payment">
-            <button className="btn btn-primary hover:bg-blue-700 transition-all duration-200">Pay</button>
+            <button className="btn text-white bg-orange-600 hover:bg-orange-700 transition-all duration-200">Pay</button>
           </Link>
         ) : (
           <button disabled className="btn btn-primary bg-gray-400 cursor-not-allowed">
