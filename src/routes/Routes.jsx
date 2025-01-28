@@ -16,6 +16,8 @@ import ManageItems from "../pages/Dashboard/ManageItems";
 import UpdateItem from "../pages/Dashboard/UpdateItem";
 import Payment from "../pages/Dashboard/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
+import UserHome from "../pages/Dashboard/UserHome";
+import AdminHome from "../pages/Dashboard/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +37,7 @@ export const router = createBrowserRouter([
         element: <MealDetails></MealDetails>,
       },
       {
-        path: "upcoming-meals",
+        path: "upcomingMeals",
         element: <UpcomingMeals></UpcomingMeals>,
       },
       {
@@ -58,6 +60,10 @@ export const router = createBrowserRouter([
     children: [
       //normal user routes
       {
+        path: "userHome",
+        element: <UserHome></UserHome>,
+      },
+      {
         path: "cart",
         element: <Cart></Cart>,
       },
@@ -69,7 +75,15 @@ export const router = createBrowserRouter([
         path: "paymentHistory",
         element: <PaymentHistory></PaymentHistory>,
       },
-      //admin only routes
+      //admin only 
+      {
+        path: "adminHome",
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
+      },
       {
         path: "addItems",
         element: (
@@ -93,7 +107,7 @@ export const router = createBrowserRouter([
             <UpdateItem></UpdateItem>
           </AdminRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:5000/meal/${params.id}`),
+        loader: ({params}) => fetch(`https://hotel-management-server-liart.vercel.app/meal/${params.id}`),
       },
       {
         path: "users",

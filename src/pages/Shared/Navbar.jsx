@@ -4,9 +4,11 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { FaMoon, FaShoppingCart, FaSun, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [activeLink, setActiveLink] = useState("");
   const [scrolling, setScrolling] = useState(false);
   const [isMealOpen, setIsMealOpen] = useState(false);
@@ -64,9 +66,9 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/meals"
-          onClick={() => setActiveLink("meal")}
+          onClick={() => setActiveLink("meals")}
           className={`${
-            activeLink === "meal"
+            activeLink === "meals"
               ? "text-orange-500"
               : darkMode
               ? "text-gray-300 hover:text-orange-300"
@@ -78,10 +80,10 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/upcoming-meals"
-          onClick={() => setActiveLink("order")}
+          to="/upcomingMeals"
+          onClick={() => setActiveLink("upcomingMeals")}
           className={`${
-            activeLink === "order"
+            activeLink === "upcomingMeals"
               ? "text-orange-500"
               : darkMode
               ? "text-gray-300 hover:text-orange-300"
@@ -91,6 +93,40 @@ const Navbar = () => {
           Upcoming Meals
         </NavLink>
       </li>
+      {user && isAdmin && (
+        <li>
+          <NavLink
+            onClick={() => setActiveLink("dashboard")}
+            className={`${
+              activeLink === "dashboard"
+                ? "text-orange-500"
+                : darkMode
+                ? "text-gray-300 hover:text-orange-300"
+                : "text-gray-700 hover:text-orange-500"
+            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+            to="/dashboard/adminHome"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <NavLink
+            onClick={() => setActiveLink("order")}
+            className={`${
+              activeLink === "order"
+                ? "text-orange-500"
+                : darkMode
+                ? "text-gray-300 hover:text-orange-300"
+                : "text-gray-700 hover:text-orange-500"
+            } transition-transform duration-200 ease-in-out transform hover:scale-105`}
+            to="/dashboard/userHome"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink to="/dashboard/cart">
           <button className="btn">
@@ -143,7 +179,9 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex">
-          <ul className="flex font-bold gap-10 items-center justify-center">{links}</ul>
+          <ul className="flex font-bold gap-10 items-center justify-center">
+            {links}
+          </ul>
         </div>
 
         {/* Dark Mode Toggle & User Actions */}
