@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosPublic = axios.create({
-    baseURL: "https://hotel-management-server-liart.vercel.app",
+    baseURL: "https://hotel-management-server-one.vercel.app",
 });
 
 const useAxiosPublic = () => {
