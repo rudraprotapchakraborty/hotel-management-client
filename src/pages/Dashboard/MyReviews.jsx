@@ -1,0 +1,101 @@
+import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import SectionTitle from "../../components/SectionTitle";
+
+const MyReviews = () => {
+  const { user } = useAuth(); // Get logged-in user from context
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!user) {
+      setError("You must be logged in to view your reviews.");
+      setLoading(false);
+      return;
+    }
+
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/meal/");
+        if (!response.ok) {
+          throw new Error(`Failed to fetch meal data. Status: ${response.status}`);
+        }
+        const meals = await response.json();
+
+        // Filter reviews where the email matches the logged-in user's email
+        const userReviews = [];
+        meals.forEach((meal) => {
+          meal.reviews.forEach((review) => {
+            if (review.email === user.email) {
+              userReviews.push({
+                mealName: meal.name,
+                review: review.review,
+                mealImage: meal.image,
+              });
+            }
+          });
+        });
+
+        setReviews(userReviews);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [user]);
+
+  if (loading) {
+    return <div className="text-center text-lg text-gray-700">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-lg text-red-600">Error: {error}</div>;
+  }
+
+  return (
+    <div className="container mx-auto p-6">
+      <SectionTitle
+        heading="My Reviews"
+        subHeading="--- What's cooking? ---"
+      ></SectionTitle>
+      {reviews.length > 0 ? (
+        <div className="overflow-x-auto mt-6">
+          <table className="min-w-full bg-white border border-gray-300 shadow-lg rounded-lg">
+            <thead className="bg-orange-600 text-white">
+              <tr>
+                <th className="py-3 px-6 text-left">#</th>
+                <th className="py-3 px-6">Meal Image</th>
+                <th className="py-3 px-6 text-left">Meal Name</th>
+                <th className="py-3 px-6 text-left">Review</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reviews.map((review, index) => (
+                <tr key={index} className="text-center border-t hover:bg-gray-100 transition-colors">
+                  <td className="py-4 px-6">{index + 1}</td>
+                  <td className="py-4 px-6">
+                    <img
+                      src={review.mealImage}
+                      className="w-16 h-16 object-cover mx-auto rounded-md shadow-sm"
+                      alt={review.mealName}
+                    />
+                  </td>
+                  <td className="py-4 px-6 text-left">{review.mealName}</td>
+                  <td className="py-4 px-6 text-left">{review.review}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-center text-lg text-gray-600">You have not left any reviews yet.</p>
+      )}
+    </div>
+  );
+};
+
+export default MyReviews;

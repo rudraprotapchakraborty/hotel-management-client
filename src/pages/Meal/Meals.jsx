@@ -12,33 +12,33 @@ const Meals = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchMeals = async () => {
+  const fetchMeals = async (reset = false) => {
     try {
       const response = await fetch(
         `http://localhost:5000/meal?search=${searchTerm}&category=${category}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&page=${page}&limit=10`
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch meals");
-      }
+      if (!response.ok) throw new Error("Failed to fetch meals");
+
       const data = await response.json();
       if (data.length < 10) setHasMore(false);
-      setMeals((prev) => [...prev, ...data]);
+
+      setMeals((prev) => (reset ? data : [...prev, ...data]));
     } catch (error) {
       console.error("Error fetching meals:", error);
     }
   };
 
+  // Reset when filters change
   useEffect(() => {
     setMeals([]);
     setPage(1);
     setHasMore(true);
-    fetchMeals();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchMeals(true);
   }, [searchTerm, category, priceRange]);
 
+  // Load more when page changes
   useEffect(() => {
     if (page > 1) fetchMeals();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (
@@ -46,18 +46,20 @@ const Meals = () => {
       <Helmet>
         <title>Hotel Management | Meals</title>
       </Helmet>
+
       {/* Filters and Search */}
       <div className="p-6 bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg shadow-md">
         <div className="flex flex-wrap justify-between items-center gap-4">
           <input
             type="text"
             placeholder="Search meals..."
-            className="input input-bordered w-full md:w-1/3 transition-all duration-300 hover:border-yellow-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white"
+            className="input input-bordered w-full md:w-1/3"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+
           <select
-            className="select select-bordered w-full md:w-1/4 transition-all duration-300 hover:border-yellow-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white"
+            className="select select-bordered w-full md:w-1/4"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -67,15 +69,15 @@ const Meals = () => {
             <option value="salad">Salad</option>
             <option value="pizza">Pizza</option>
           </select>
+
           <div className="flex items-center gap-4 w-full md:w-1/3">
-            <span className="text-gray-800 dark:text-white">Price:</span>
+            <span>Price:</span>
             <input
               type="range"
               min="0"
               max="50"
               value={priceRange[0]}
               onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-              className="transition-all duration-300 dark:bg-gray-600"
             />
             <input
               type="range"
@@ -83,21 +85,20 @@ const Meals = () => {
               max="50"
               value={priceRange[1]}
               onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-              className="transition-all duration-300 dark:bg-gray-600"
             />
-            <span className="text-gray-800 dark:text-white">${priceRange[0]} - ${priceRange[1]}</span>
+            <span>${priceRange[0]} - ${priceRange[1]}</span>
           </div>
         </div>
       </div>
 
-      {/* Infinite Scrolling */}
+      {/* Infinite Scroll */}
       <InfiniteScroll
         dataLength={meals.length}
         next={() => setPage((prev) => prev + 1)}
         hasMore={hasMore}
-        loader={<h4 className="text-center py-4 text-gray-600 dark:text-white">Loading more meals...</h4>}
+        loader={<h4 className="text-center py-4">Loading more meals...</h4>}
       >
-        <SectionTitle heading={"All Meals"} subHeading={"--- Explore all the meals ---"} />
+        <SectionTitle heading="All Meals" subHeading="--- Explore all the meals ---" />
         <MealsCategory items={meals} />
       </InfiniteScroll>
     </div>

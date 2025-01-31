@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import SectionTitle from "../../components/SectionTitle";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -16,46 +17,52 @@ const PaymentHistory = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 p-8 transition-all duration-300 min-h-screen">
-      {/* Header */}
-      <div className="flex justify-between mb-8">
-        <h2 className="text-3xl text-gray-900 dark:text-white">Total Payments: {payments.length}</h2>
-      </div>
+      <SectionTitle
+        heading="Payment History"
+        subHeading="--- What's cooking? ---"
+      ></SectionTitle>
 
       {/* Payment History Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
-        <table className="table table-zebra w-full text-gray-900 dark:text-white">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Price</th>
-              <th>Transaction ID</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payments.map((payment, index) => (
-              <tr key={payment._id}>
-                <th>{index + 1}</th>
-                <td>${payment.price}</td>
-                <td>{payment.transactionId}</td>
-                <td>
-                  <span
-                    className={`${
-                      payment.status === "Success"
-                        ? "text-green-500"
-                        : payment.status === "Pending"
-                        ? "text-yellow-500"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {payment.status}
-                  </span>
-                </td>
+      {payments.length > 0 ? (
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+          <table className="table table-zebra w-full text-gray-900 dark:text-white">
+            <thead className="bg-orange-600 text-white">
+              <tr>
+                <th className="py-3 px-6">#</th>
+                <th className="py-3 px-6">Price</th>
+                <th className="py-3 px-6">Transaction ID</th>
+                <th className="py-3 px-6">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {payments.map((payment, index) => (
+                <tr key={payment._id} className="text-center border-t hover:bg-gray-100 transition-all duration-200">
+                  <td className="py-4 px-6">{index + 1}</td>
+                  <td className="py-4 px-6">${payment.price}</td>
+                  <td className="py-4 px-6">{payment.transactionId}</td>
+                  <td className="py-4 px-6">
+                    <span
+                      className={`${
+                        payment.status === "Success"
+                          ? "text-green-500"
+                          : payment.status === "Pending"
+                          ? "text-yellow-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {payment.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 text-center text-gray-900 dark:text-white">
+          <p>No payment history found.</p>
+        </div>
+      )}
     </div>
   );
 };

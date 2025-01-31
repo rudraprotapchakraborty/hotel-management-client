@@ -57,7 +57,7 @@ const AddItems = () => {
               type="text"
               placeholder="Recipe Name"
               required
-              className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
+              className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </label>
 
@@ -70,7 +70,7 @@ const AddItems = () => {
               <select
                 defaultValue="default"
                 {...register("category", { required: true })}
-                className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
+                className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option disabled value="default">
                   Select a category
@@ -91,7 +91,7 @@ const AddItems = () => {
                 {...register("price", { required: true })}
                 type="number"
                 placeholder="Price"
-                className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
+                className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </label>
           </div>
@@ -103,7 +103,7 @@ const AddItems = () => {
             </div>
             <textarea
               {...register("recipe", { required: true })}
-              className="textarea textarea-bordered h-24 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
+              className="textarea textarea-bordered h-24 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="Recipe Details"
             ></textarea>
           </label>
@@ -113,7 +113,7 @@ const AddItems = () => {
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full max-w-xs dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300"
+              className="file-input w-full max-w-xs dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
 

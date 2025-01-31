@@ -18,6 +18,8 @@ import Payment from "../pages/Dashboard/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import UserHome from "../pages/Dashboard/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome";
+import RequestedMeals from "../pages/Dashboard/RequestedMeals";
+import MyReviews from "../pages/Dashboard/MyReviews";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ export const router = createBrowserRouter([
       {
         path: "userHome",
         element: <UserHome></UserHome>,
+      },
+      {
+        path: "requestedMeals",
+        element: <RequestedMeals></RequestedMeals>,
+      },
+      {
+        path: "myReviews",
+        element: <MyReviews></MyReviews>,
       },
       {
         path: "cart",

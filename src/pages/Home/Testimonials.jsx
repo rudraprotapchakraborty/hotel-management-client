@@ -8,19 +8,19 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
 const Testimonials = () => {
-  const [reviews, setReviews] = useState([]);
+  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("http://localhost:5000/meal")
       .then((res) => res.json())
       .then((data) => {
-        setReviews(data);
+        setMeals(data);
       });
   }, []);
 
   return (
     <section className="my-20 px-6 md:px-16">
-      <SectionTitle heading={"TESTIMONIALS"} subHeading={"What Our Clients Say"} />
+      <SectionTitle heading={"Reviews"} subHeading={"What Our Customers Are Saying"} />
 
       <Swiper
         navigation={true}
@@ -30,20 +30,28 @@ const Testimonials = () => {
         slidesPerView={1}
         loop={true}
       >
-        {reviews.map((review) => (
-          <SwiperSlide key={review._id}>
+        {meals.map((meal) => (
+          <SwiperSlide key={meal._id}>
             <div className="flex flex-col items-center mx-6 md:mx-24 mt-16 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
-              <Rating
-                style={{ maxWidth: 180 }}
-                value={review.rating}
-                readOnly
-              />
+              <img src={meal.image} alt={meal.name} className="w-full h-56 object-cover rounded-lg" />
+              <Rating style={{ maxWidth: 180 }} value={meal.rating} readOnly />
               <p className="py-6 text-center text-lg text-gray-700 dark:text-gray-300">
-                {review.details}
+                {meal.recipe}
               </p>
-              <h3 className="text-2xl text-[#CD9003] font-semibold">
-                {review.name}
-              </h3>
+              <h3 className="text-2xl text-[#CD9003] font-semibold">{meal.name}</h3>
+              <p className="text-lg text-gray-600 dark:text-gray-400">
+                Price: ${meal.price}
+              </p>
+
+              {/* Display reviews for each meal */}
+              <div className="mt-4 space-y-4">
+                {meal.reviews.map((review, index) => (
+                  <div key={index} className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-200">{review.user}</h4>
+                    <p className="text-gray-600 dark:text-gray-400">{review.review}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </SwiperSlide>
         ))}

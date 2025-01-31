@@ -18,14 +18,12 @@ const CheckoutForm = () => {
   const [cart, refetch] = useCart();
   const navigate = useNavigate();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-  // console.log("Total price:", totalPrice);
 
   useEffect(() => {
     if (totalPrice > 0) {
       axiosSecure
         .post("create-payment-intent", { price: totalPrice })
         .then((res) => {
-          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -50,12 +48,10 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      // console.log("payment error", error);
       setError(error.message);
       setIsLoading(false);
       return;
     } else {
-      // console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -75,12 +71,9 @@ const CheckoutForm = () => {
     setIsLoading(false);
 
     if (confirmError) {
-      // console.log("confirm error", confirmError);
       setError("Payment confirmation failed. Please try again.");
     } else {
-      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        // console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
         const payment = {
@@ -98,7 +91,7 @@ const CheckoutForm = () => {
         if (res.data?.paymentResult?.insertedId) {
           Swal.fire({
             icon: "success",
-            title: "Payment successful",
+            title: "Payment Successful",
             text: `Transaction ID: ${paymentIntent.id}`,
             showConfirmButton: false,
             timer: 2000,
@@ -110,21 +103,24 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <CardElement className="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    <div className="max-w-lg mx-auto p-8 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="mb-6">
+          <label htmlFor="card-element" className="text-lg text-gray-900 dark:text-white mb-2 block">Payment Details</label>
+          <CardElement className="p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
+
         {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
         {transactionId && (
-          <p className="text-green-600 text-sm mb-2">Your transaction ID: {transactionId}</p>
+          <p className="text-green-600 text-sm mb-2">Transaction ID: {transactionId}</p>
         )}
+
         <button
           type="submit"
           disabled={isLoading || !stripe || !clientSecret}
-          className={`w-full py-2 px-4 mt-6 ${
+          className={`w-full py-3 px-4 mt-4 ${
             isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-orange-600 hover:bg-orange-700"
-          } text-white font-semibold rounded-md`}
+          } text-white font-semibold rounded-md transition-all duration-200`}
         >
           {isLoading ? "Processing..." : "Pay Now"}
         </button>
