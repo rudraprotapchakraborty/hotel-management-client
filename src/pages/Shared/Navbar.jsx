@@ -1,20 +1,20 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { FaMoon, FaShoppingCart, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun, FaBell, FaShoppingCart } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
-import useCart from "../../hooks/useCart";
 import useAdmin from "../../hooks/useAdmin";
 import logo from "../../../public/logo.png";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-  const [cart] = useCart();
   const profileRef = useRef(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [cart] = useCart();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,17 +29,6 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut();
   };
-
-  const navLinks = [
-    { path: "/", label: "Home" },
-    { path: "/meals", label: "Meals" },
-    { path: "/upcomingMeals", label: "Upcoming Meals" },
-    ...(user && isAdmin
-      ? [{ path: "/dashboard/adminHome", label: "Dashboard" }]
-      : user
-      ? [{ path: "/dashboard/userHome", label: "Dashboard" }]
-      : []),
-  ];
 
   return (
     <div
@@ -62,33 +51,65 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <ul className="hidden lg:flex gap-8 items-center font-semibold">
-          {navLinks.map(({ path, label }) => (
-            <li key={path}>
-              <NavLink
-                to={path}
-                className={`transition duration-200 ease-in-out hover:scale-105 ${
-                  darkMode
-                    ? "text-gray-300 hover:text-orange-400"
-                    : "text-gray-700 hover:text-orange-500"
-                }`}
-              >
-                {label}
-              </NavLink>
-            </li>
-          ))}
-          {user && (
-            <li>
-              <NavLink to="/dashboard/cart">
-                <button className="relative flex items-center gap-2 px-4 py-2 rounded-lg shadow-md bg-orange-500 hover:bg-orange-600 text-white transition-all">
-                  <FaShoppingCart />
-                  <span className="badge badge-secondary">{cart.length}</span>
-                </button>
-              </NavLink>
-            </li>
-          )}
+          <li>
+            <NavLink
+              to="/"
+              className={`transition duration-200 hover:scale-105 ${
+                darkMode
+                  ? "text-gray-300 hover:text-orange-400"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/meals"
+              className={`transition duration-200 hover:scale-105 ${
+                darkMode
+                  ? "text-gray-300 hover:text-orange-400"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Meals
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/upcomingMeals"
+              className={`transition duration-200 hover:scale-105 ${
+                darkMode
+                  ? "text-gray-300 hover:text-orange-400"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Upcoming Meals
+            </NavLink>
+          </li>
+
+          {/* Notification Icon */}
+          <li>
+            <button className="relative text-lg">
+              <FaBell
+                className={darkMode ? "text-gray-300" : "text-gray-700"}
+              />
+            </button>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/cart">
+              <button className="btn btn-ghost p-0">
+                <FaShoppingCart
+                  className={darkMode ? "text-gray-300" : "text-gray-700"}
+                />
+                <div className="badge badge-secondary">+{cart.length}</div>
+              </button>
+            </NavLink>
+          </li>
         </ul>
 
-        {/* Actions: Dark Mode & Profile */}
+        {/* Actions: Dark Mode & Profile/Login */}
         <div className="flex items-center gap-4">
           {/* Dark Mode Toggle */}
           <button
@@ -102,7 +123,7 @@ const Navbar = () => {
             {darkMode ? <FaMoon /> : <FaSun />}
           </button>
 
-          {/* Profile Section */}
+          {/* Profile or Join Us */}
           {user ? (
             <div className="relative" ref={profileRef}>
               <img
@@ -114,10 +135,22 @@ const Navbar = () => {
               {profileMenuOpen && (
                 <div
                   className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 z-50 ${
-                    darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"
+                    darkMode
+                      ? "bg-gray-800 text-gray-200"
+                      : "bg-white text-gray-700"
                   }`}
                 >
-                  <span className="block px-4 py-2 text-sm">{user.displayName}</span>
+                  <span className="block px-4 py-2 text-sm font-bold">
+                    {user.displayName}
+                  </span>
+                  <NavLink
+                    to={
+                      isAdmin ? "/dashboard/adminHome" : "/dashboard/userHome"
+                    }
+                    className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
+                  >
+                    Dashboard
+                  </NavLink>
                   <button
                     onClick={handleLogOut}
                     className="w-full text-left px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
@@ -131,12 +164,7 @@ const Navbar = () => {
             <div className="flex gap-2">
               <NavLink to="/login">
                 <button className="px-4 py-2 rounded-lg shadow-md bg-orange-500 text-white hover:bg-orange-600">
-                  Login
-                </button>
-              </NavLink>
-              <NavLink to="/signup">
-                <button className="px-4 py-2 rounded-lg shadow-md bg-orange-500 text-white hover:bg-orange-600">
-                  Sign Up
+                  Join Us
                 </button>
               </NavLink>
             </div>
@@ -169,20 +197,38 @@ const Navbar = () => {
           {isMenuOpen && (
             <ul
               className={`absolute right-4 top-16 w-56 rounded-lg shadow-md py-2 ${
-                darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"
+                darkMode
+                  ? "bg-gray-800 text-gray-200"
+                  : "bg-white text-gray-700"
               }`}
             >
-              {navLinks.map(({ path, label }) => (
-                <li key={path}>
-                  <NavLink
-                    to={path}
-                    className="block px-4 py-2 transition hover:bg-orange-500 hover:text-white rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
+              <li>
+                <NavLink
+                  to="/"
+                  className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/meals"
+                  className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Meals
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/upcomingMeals"
+                  className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Upcoming Meals
+                </NavLink>
+              </li>
             </ul>
           )}
         </div>

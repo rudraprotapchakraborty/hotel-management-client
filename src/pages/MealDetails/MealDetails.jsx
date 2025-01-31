@@ -16,7 +16,7 @@ const MealDetails = () => {
     useEffect(() => {
         const fetchMealData = async () => {
             try {
-                const response = await fetch(`https://hotel-management-server-one.vercel.app/meal/${id}`);
+                const response = await fetch(`http://localhost:5000/meal/${id}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch meal data. Status: ${response.status}`);
                 }
@@ -36,7 +36,7 @@ const MealDetails = () => {
 
     const handleLike = async () => {
         try {
-            const response = await fetch(`https://hotel-management-server-one.vercel.app/meal/like/${id}`, {
+            const response = await fetch(`http://localhost:5000/meal/like/${id}`, {
                 method: "POST",
             });
             const data = await response.json();
@@ -58,7 +58,7 @@ const MealDetails = () => {
         }
 
         try {
-            const response = await fetch(`https://hotel-management-server-one.vercel.app/meal/request/${id}`, {
+            const response = await fetch(`http://localhost:5000/meal/request/${id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -91,7 +91,7 @@ const MealDetails = () => {
         };
 
         try {
-            const response = await fetch(`https://hotel-management-server-one.vercel.app/meal/review/${id}`, {
+            const response = await fetch(`http://localhost:5000/meal/review/${id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newReview),

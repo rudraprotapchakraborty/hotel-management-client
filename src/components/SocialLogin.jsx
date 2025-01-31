@@ -13,14 +13,14 @@ const SocialLogin = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         const userInfo = {
           name: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
         };
         axiosPublic.post("/users", userInfo).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
         });
         navigate(from, { replace: true });
       })

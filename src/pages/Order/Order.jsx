@@ -11,7 +11,7 @@ const Order = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const categories = ["breakfast", "lunch", "dinner", "allMeals"];
   const { category } = useParams();
   const initialIndex = categories.includes(category) ? categories.indexOf(category) : 0;
   const [tabIndex, setTabIndex] = useState(initialIndex);
@@ -20,8 +20,9 @@ const Order = () => {
   // Dynamically group meals by category
   const groupedMeals = categories.map((cat) => ({
     category: cat.toUpperCase(),
-    items: meal.filter((item) => item.category === cat),
+    items: meal.filter((item) => item.category.includes(cat)),
   }));
+  
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen py-8">
@@ -57,10 +58,6 @@ const Order = () => {
 
         <TabPanel className={tabIndex === 3 ? "bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md" : "hidden"}>
           {groupedMeals[3].items.length > 0 && <OrderTab items={groupedMeals[3].items} />}
-        </TabPanel>
-
-        <TabPanel className={tabIndex === 4 ? "bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md" : "hidden"}>
-          {groupedMeals[4].items.length > 0 && <OrderTab items={groupedMeals[4].items} />}
         </TabPanel>
       </Tabs>
     </div>

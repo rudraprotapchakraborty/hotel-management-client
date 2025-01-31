@@ -18,14 +18,14 @@ const CheckoutForm = () => {
   const [cart, refetch] = useCart();
   const navigate = useNavigate();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-  console.log("Total price:", totalPrice);
+  // console.log("Total price:", totalPrice);
 
   useEffect(() => {
     if (totalPrice > 0) {
       axiosSecure
         .post("create-payment-intent", { price: totalPrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -50,12 +50,12 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log("payment error", error);
+      // console.log("payment error", error);
       setError(error.message);
       setIsLoading(false);
       return;
     } else {
-      console.log("payment method", paymentMethod);
+      // console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -75,12 +75,12 @@ const CheckoutForm = () => {
     setIsLoading(false);
 
     if (confirmError) {
-      console.log("confirm error", confirmError);
+      // console.log("confirm error", confirmError);
       setError("Payment confirmation failed. Please try again.");
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction id", paymentIntent.id);
+        // console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
         const payment = {

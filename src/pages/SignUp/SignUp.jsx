@@ -18,7 +18,7 @@ const SignUp = () => {
     const onSubmit = data => {
         createUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         axiosPublic.post('/users', { name: data.name, photoURL: data.photoURL, email: data.email })
@@ -36,7 +36,7 @@ const SignUp = () => {
                                 }
                             })
                     })
-                    .catch(error => { console.log(error) })
+                    // .catch(error => { console.log(error) })
             })
     };
 

@@ -20,7 +20,7 @@ const AllUsers = () => {
       .patch(`/users/admin/${user._id}`)
       .then((res) => {
         refetch();
-        console.log(res.data);
+        // console.log(res.data);
         Swal.fire({
           title: "Success!",
           text: "User is now an admin.",
@@ -28,7 +28,7 @@ const AllUsers = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         Swal.fire({
           title: "Error!",
           text: "Something went wrong.",
@@ -54,7 +54,7 @@ const AllUsers = () => {
           .delete(`/users/${user._id}`)
           .then((res) => {
             refetch();
-            console.log(res.data);
+            // console.log(res.data);
             Swal.fire({
               title: "Deleted!",
               text: "User has been deleted.",
@@ -62,7 +62,7 @@ const AllUsers = () => {
             });
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             Swal.fire({
               title: "Error!",
               text: "Something went wrong.",

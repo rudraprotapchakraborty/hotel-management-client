@@ -15,7 +15,7 @@ const Meals = () => {
   const fetchMeals = async () => {
     try {
       const response = await fetch(
-        `https://hotel-management-server-one.vercel.app/meal?search=${searchTerm}&category=${category}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&page=${page}&limit=10`
+        `http://localhost:5000/meal?search=${searchTerm}&category=${category}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&page=${page}&limit=10`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch meals");
