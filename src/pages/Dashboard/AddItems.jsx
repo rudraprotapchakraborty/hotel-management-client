@@ -14,30 +14,35 @@ const AddItems = () => {
   const axiosSecure = useAxiosSecure();
 
   const onSubmit = async (data) => {
-    const imageFile = { image: data.image[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    if (res.data.success) {
-      const mealItem = {
-        name: data.name,
-        category: data.category,
-        price: parseFloat(data.price),
-        recipe: data.recipe,
-        image: res.data.data.display_url,
-      };
-      const mealRes = await axiosSecure.post("/meal", mealItem);
-      if (mealRes.data.insertedId) {
-        reset();
-        Swal.fire({
-          title: `${data.name} added!`,
-          text: "Item added successfully",
-          icon: "success",
-          confirmButtonText: "Close",
-        });
+    try {
+      const imageFile = new FormData();
+      imageFile.append("image", data.image[0]);
+      
+      const res = await axiosPublic.post(image_hosting_api, imageFile);
+      
+      if (res.data.success) {
+        const mealItem = {
+          name: data.name,
+          category: data.category,
+          price: parseFloat(data.price),
+          recipe: data.recipe,
+          image: res.data.data.display_url,
+        };
+        
+        const mealRes = await axiosSecure.post("/meal", mealItem);
+        
+        if (mealRes.data.insertedId) {
+          reset();
+          Swal.fire({
+            title: `${data.name} added!`,
+            text: "Item added successfully",
+            icon: "success",
+            confirmButtonText: "Close",
+          });
+        }
       }
+    } catch (error) {
+      console.error("Error uploading image or adding meal:", error);
     }
   };
 
@@ -48,29 +53,29 @@ const AddItems = () => {
       <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg mt-8 transition-all duration-300">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Recipe Name */}
-          <label className="form-control w-full">
-            <div className="label">
+          <div className="form-control w-full">
+            <label className="label">
               <span className="label-text text-gray-900 dark:text-white">Recipe Name*</span>
-            </div>
+            </label>
             <input
               {...register("name", { required: true })}
               type="text"
               placeholder="Recipe Name"
               required
-              className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
-          </label>
+          </div>
 
           {/* Category and Price */}
           <div className="flex gap-6">
-            <label className="form-control w-full">
-              <div className="label">
+            <div className="form-control w-full">
+              <label className="label">
                 <span className="label-text text-gray-900 dark:text-white">Category Name*</span>
-              </div>
+              </label>
               <select
                 defaultValue="default"
                 {...register("category", { required: true })}
-                className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 <option disabled value="default">
                   Select a category
@@ -81,44 +86,44 @@ const AddItems = () => {
                 <option value="dessert">Desserts</option>
                 <option value="drinks">Drinks</option>
               </select>
-            </label>
+            </div>
 
-            <label className="form-control w-full">
-              <div className="label">
+            <div className="form-control w-full">
+              <label className="label">
                 <span className="label-text text-gray-900 dark:text-white">Price*</span>
-              </div>
+              </label>
               <input
                 {...register("price", { required: true })}
                 type="number"
                 placeholder="Price"
-                className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-            </label>
+            </div>
           </div>
 
           {/* Recipe Details */}
-          <label className="form-control w-full">
-            <div className="label">
+          <div className="form-control w-full">
+            <label className="label">
               <span className="label-text text-gray-900 dark:text-white">Recipe Details</span>
-            </div>
+            </label>
             <textarea
               {...register("recipe", { required: true })}
-              className="textarea textarea-bordered h-24 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="textarea textarea-bordered h-24 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Recipe Details"
             ></textarea>
-          </label>
+          </div>
 
           {/* Image Upload */}
           <div className="form-control w-full">
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full max-w-xs dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="file-input w-full max-w-xs dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
 
           {/* Submit Button */}
-          <button className="btn w-full bg-orange-600 text-white hover:bg-orange-700 transition-all duration-300 rounded-lg py-3 flex items-center justify-center">
+          <button className="btn w-full bg-purple-600 text-white hover:bg-purple-700 transition-all duration-300 rounded-lg py-3 flex items-center justify-center">
             Add Item <FaUtensils className="ml-2" />
           </button>
         </form>

@@ -18,15 +18,15 @@ const AllUsers = () => {
   const handleMakeAdmin = (user) => {
     axiosSecure
       .patch(`/users/admin/${user._id}`)
-      .then((res) => {
+      .then(() => {
         refetch();
         Swal.fire({
           title: "Success!",
-          text: "User is now an admin.",
+          text: `${user.name} is now an admin.`,
           icon: "success",
         });
       })
-      .catch((err) => {
+      .catch(() => {
         Swal.fire({
           title: "Error!",
           text: "Something went wrong.",
@@ -50,15 +50,15 @@ const AllUsers = () => {
       if (result.isConfirmed) {
         axiosSecure
           .delete(`/users/${user._id}`)
-          .then((res) => {
+          .then(() => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "User has been deleted.",
+              text: "User has been removed.",
               icon: "success",
             });
           })
-          .catch((err) => {
+          .catch(() => {
             Swal.fire({
               title: "Error!",
               text: "Something went wrong.",
@@ -73,60 +73,62 @@ const AllUsers = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
-      <SectionTitle heading="ALL USERS" subHeading="--- What's cooking? ---" />
+      <SectionTitle heading="ALL USERS" subHeading="--- Manage your users ---" />
 
-      <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-6">
-        <table className="table w-full text-sm text-gray-900 dark:text-white transition-all duration-300">
-          <thead>
-            <tr className="bg-gray-200 dark:bg-gray-700">
-              <th className="py-3 px-4">#</th>
-              <th className="py-3 px-4">Name</th>
-              <th className="py-3 px-4">Email</th>
-              <th className="py-3 px-4">Role</th>
-              <th className="py-3 px-4">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length > 0 ? (
-              users.map((user, index) => (
-                <tr
-                  key={user._id}
-                  className="hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200"
-                >
-                  <td className="py-3 px-4">{index + 1}</td>
-                  <td className="py-3 px-4">{user.name}</td>
-                  <td className="py-3 px-4">{user.email}</td>
-                  <td className="py-3 px-4">
-                    {user.role === "admin" ? (
-                      <span className="text-green-500 font-semibold">Admin</span>
-                    ) : (
+      <div className="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg mt-6 transition-all duration-300">
+        <div className="overflow-x-auto">
+          <table className="w-full bg-white dark:bg-gray-800 border border-gray-300 shadow-lg rounded-lg">
+            <thead className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white">
+              <tr>
+                <th className="py-3 px-6 text-left">#</th>
+                <th className="py-3 px-6 text-left">Name</th>
+                <th className="py-3 px-6 text-left">Email</th>
+                <th className="py-3 px-6 text-center">Role</th>
+                <th className="py-3 px-6 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.length > 0 ? (
+                users.map((user, index) => (
+                  <tr
+                    key={user._id}
+                    className="border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                  >
+                    <td className="py-4 px-6">{index + 1}</td>
+                    <td className="py-4 px-6">{user.name}</td>
+                    <td className="py-4 px-6">{user.email}</td>
+                    <td className="py-4 px-6 text-center">
+                      {user.role === "admin" ? (
+                        <span className="text-green-500 font-semibold">Admin</span>
+                      ) : (
+                        <button
+                          onClick={() => handleMakeAdmin(user)}
+                          className="btn bg-purple-500 text-white hover:bg-purple-600 rounded-lg py-2 px-4 transition-all duration-300"
+                        >
+                          <FaUsers className="text-white text-xl" />
+                        </button>
+                      )}
+                    </td>
+                    <td className="py-4 px-6 text-center">
                       <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className="btn bg-orange-500 text-white hover:bg-orange-600 rounded-lg py-2 px-4 transition-all duration-300"
+                        onClick={() => handleDeleteUser(user)}
+                        className="btn bg-red-500 text-white hover:bg-red-600 rounded-lg py-2 px-4 transition-all duration-300"
                       >
-                        <FaUsers className="text-white text-2xl" />
+                        <FaTrashAlt className="text-white text-xl" />
                       </button>
-                    )}
-                  </td>
-                  <td className="py-3 px-4">
-                    <button
-                      onClick={() => handleDeleteUser(user)}
-                      className="btn bg-red-500 text-white hover:bg-red-600 rounded-lg py-2 px-4 transition-all duration-300"
-                    >
-                      <FaTrashAlt className="text-white text-2xl" />
-                    </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="py-4 px-6 text-center text-gray-600 dark:text-white">
+                    No users available
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className="py-3 px-4 text-center text-gray-500">
-                  No users available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

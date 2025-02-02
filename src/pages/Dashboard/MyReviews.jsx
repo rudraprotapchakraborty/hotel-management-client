@@ -57,15 +57,16 @@ const MyReviews = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-xl shadow-2xl transition-all duration-300 min-h-screen">
       <SectionTitle
         heading="My Reviews"
         subHeading="--- What's cooking? ---"
-      ></SectionTitle>
+      />
+
       {reviews.length > 0 ? (
         <div className="overflow-x-auto mt-6">
-          <table className="min-w-full bg-white border border-gray-300 shadow-lg rounded-lg">
-            <thead className="bg-orange-600 text-white">
+          <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 shadow-lg rounded-lg">
+            <thead className="bg-purple-600 text-white">
               <tr>
                 <th className="py-3 px-6 text-left">#</th>
                 <th className="py-3 px-6">Meal Image</th>
@@ -75,7 +76,10 @@ const MyReviews = () => {
             </thead>
             <tbody>
               {reviews.map((review, index) => (
-                <tr key={index} className="text-center border-t hover:bg-gray-100 transition-colors">
+                <tr
+                  key={index}
+                  className="text-center border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
                   <td className="py-4 px-6">{index + 1}</td>
                   <td className="py-4 px-6">
                     <img
@@ -92,7 +96,9 @@ const MyReviews = () => {
           </table>
         </div>
       ) : (
-        <p className="text-center text-lg text-gray-600">You have not left any reviews yet.</p>
+        <p className="text-center text-lg text-gray-600 dark:text-white">
+          You have not left any reviews yet.
+        </p>
       )}
     </div>
   );

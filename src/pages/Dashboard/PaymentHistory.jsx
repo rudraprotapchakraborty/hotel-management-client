@@ -16,17 +16,17 @@ const PaymentHistory = () => {
   });
 
   return (
-    <div className="bg-white dark:bg-gray-900 p-8 transition-all duration-300 min-h-screen">
+    <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-xl shadow-2xl transition-all duration-300 motion-safe:transform motion-safe:translate-x-0 motion-safe:opacity-100 min-h-screen">
       <SectionTitle
         heading="Payment History"
         subHeading="--- What's cooking? ---"
-      ></SectionTitle>
+      />
 
       {/* Payment History Table */}
       {payments.length > 0 ? (
-        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-all duration-300">
           <table className="table table-zebra w-full text-gray-900 dark:text-white">
-            <thead className="bg-orange-600 text-white">
+            <thead className="bg-purple-600 text-white">
               <tr>
                 <th className="py-3 px-6">#</th>
                 <th className="py-3 px-6">Price</th>
@@ -36,7 +36,10 @@ const PaymentHistory = () => {
             </thead>
             <tbody>
               {payments.map((payment, index) => (
-                <tr key={payment._id} className="text-center border-t hover:bg-gray-100 transition-all duration-200">
+                <tr
+                  key={payment._id}
+                  className="text-center border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 motion-safe:transform motion-safe:scale-100 motion-safe:opacity-100"
+                >
                   <td className="py-4 px-6">{index + 1}</td>
                   <td className="py-4 px-6">${payment.price}</td>
                   <td className="py-4 px-6">{payment.transactionId}</td>

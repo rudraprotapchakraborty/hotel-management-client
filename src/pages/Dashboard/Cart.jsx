@@ -45,14 +45,11 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 p-8 transition-all duration-300 min-h-screen">
-      <SectionTitle
-        heading="MY CART"
-        subHeading="--- What's cooking? ---"
-      ></SectionTitle>
+    <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-xl shadow-2xl transition-all duration-300 motion-safe:transform motion-safe:translate-x-0 motion-safe:opacity-100 min-h-screen">
+      <SectionTitle heading="MY CART" subHeading="--- What's cooking? ---" />
 
       {/* Cart Header */}
-      <div className="flex justify-between mb-8">
+      <div className="flex justify-between mb-8 transition-all duration-300">
         <h2 className="text-3xl text-gray-900 dark:text-white">
           Items: {cart.length}
         </h2>
@@ -61,22 +58,22 @@ const Cart = () => {
         </h2>
         {cart.length > 0 ? (
           <Link to="/dashboard/payment">
-            <button className="btn text-white bg-orange-600 hover:bg-orange-700 transition-all duration-200">
-              Pay
+            <button className="btn text-white bg-purple-600 hover:bg-purple-700 transition-all duration-200">
+              Pay Now
             </button>
           </Link>
         ) : (
           <button disabled className="btn bg-gray-400 cursor-not-allowed">
-            Pay
+            Pay Now
           </button>
         )}
       </div>
 
       {/* Cart Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-all duration-300">
         {cart.length > 0 ? (
           <table className="min-w-full table-auto text-gray-900 dark:text-white">
-            <thead className="bg-orange-600 text-white">
+            <thead className="bg-purple-600 text-white">
               <tr>
                 <th className="py-3 px-6">#</th>
                 <th className="py-3 px-6">Image</th>
@@ -89,7 +86,7 @@ const Cart = () => {
               {cart.map((item, index) => (
                 <tr
                   key={item._id}
-                  className="text-center border-t hover:bg-gray-100 transition-all duration-200"
+                  className="text-center border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 motion-safe:transform motion-safe:scale-100 motion-safe:opacity-100"
                 >
                   <td className="py-4 px-6">{index + 1}</td>
                   <td className="py-4 px-6">
@@ -108,7 +105,7 @@ const Cart = () => {
                   <td className="py-4 px-6">
                     <button
                       onClick={() => handleDelete(item._id)}
-                      className="btn btn-ghost text-red-600 hover:bg-red-100 transition-all duration-200"
+                      className="btn btn-ghost text-red-600 hover:bg-red-100 dark:hover:bg-red-700 transition-all duration-200"
                     >
                       <FaTrashAlt className="text-xl" />
                     </button>

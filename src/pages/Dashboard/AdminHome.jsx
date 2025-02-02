@@ -45,32 +45,32 @@ const AdminHome = () => {
                 </div>
 
                 {/* Admin Actions */}
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
+                <div className="mt-8 grid justify-between grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="flex flex-col items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Meal Management</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">Add, update, or remove meals from the menu.</p>
                         <Link to="/dashboard/manageItems">
-                            <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none transition-all">
+                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
                                 Manage Meals
                             </button>
                         </Link>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
+                    <div className="flex flex-col justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Add New Meal</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">Add new meal options to the menu.</p>
                         <Link to="/dashboard/addItems">
-                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all">
+                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
                                 Add Meal
                             </button>
                         </Link>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
+                    <div className="flex flex-col justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105 hover:shadow-xl">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">User Management</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">View and manage user accounts and their roles.</p>
                         <Link to="/dashboard/users">
-                            <button className="mt-4 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none transition-all">
+                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
                                 Manage Users
                             </button>
                         </Link>

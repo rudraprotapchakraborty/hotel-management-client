@@ -2,60 +2,82 @@ import {
   FaCalendar,
   FaHome,
   FaList,
+  FaMoon,
   FaShoppingCart,
+  FaSun,
   FaUsers,
   FaUtensils,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Dashboard = () => {
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
   const [cart] = useCart();
   const [isAdmin] = useAdmin();
 
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
       {/* Sidebar */}
-      <div className="w-64 bg-orange-400 dark:bg-gray-800 p-6">
-        <ul className="menu space-y-4 text-gray-900 dark:text-white">
+      <div className="w-64 bg-purple-100 dark:bg-gray-800 p-6 rounded-l-xl shadow-2xl">
+        <ul className="space-y-4 text-gray-900 dark:text-white">
           {/* Admin Links */}
           {isAdmin ? (
             <>
               <li>
                 <NavLink
                   to="/dashboard/adminHome"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaHome />
-                  <span>Admin Home</span>
+                  <span className="font-medium">Admin Home</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/addItems"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaUtensils />
-                  <span>Add Items</span>
+                  <span className="font-medium">Add Items</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/manageItems"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaList />
-                  <span>Manage Items</span>
+                  <span className="font-medium">Manage Items</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/users"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaUsers />
-                  <span>All Users</span>
+                  <span className="font-medium">All Users</span>
                 </NavLink>
               </li>
             </>
@@ -65,46 +87,66 @@ const Dashboard = () => {
               <li>
                 <NavLink
                   to="/dashboard/userHome"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaHome />
-                  <span>User Home</span>
+                  <span className="font-medium">User Home</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/requestedMeals"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaUtensils />
-                  <span>Requested Meals</span>
+                  <span className="font-medium">Requested Meals</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/myReviews"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaUtensils />
-                  <span>My Reviews</span>
+                  <span className="font-medium">My Reviews</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/cart"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaShoppingCart />
-                  <span>My Cart ({cart.length})</span>
+                  <span className="font-medium">My Cart ({cart.length})</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/dashboard/paymentHistory"
-                  className="flex items-center space-x-2 hover:bg-orange-500 px-4 py-3 rounded-lg transition-all duration-200"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                      isActive ? "bg-purple-500" : ""
+                    }`
+                  }
                 >
                   <FaCalendar />
-                  <span>Payment History</span>
+                  <span className="font-medium">Payment History</span>
                 </NavLink>
               </li>
             </>
@@ -113,22 +155,59 @@ const Dashboard = () => {
           <li>
             <NavLink
               to="/"
-              className="flex items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200"
+              className="flex items-center space-x-3 hover:bg-gray-300 dark:hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200"
             >
               <FaHome />
-              <span>Home</span>
+              <span className="font-medium">Home</span>
             </NavLink>
           </li>
           <li>
             <NavLink
               to="/meals"
-              className="flex items-center space-x-2 hover:bg-gray-300 dark:hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200"
+              className="flex items-center space-x-3 hover:bg-gray-300 dark:hover:bg-gray-700 px-4 py-3 rounded-lg transition-all duration-200"
             >
               <FaList />
-              <span>Meals</span>
+              <span className="font-medium">Meals</span>
             </NavLink>
           </li>
         </ul>
+        <div className="flex items-center space-x-3 ml-4 mt-8">
+          <label
+            htmlFor="darkModeToggle"
+            className="relative inline-block w-12 h-6"
+          >
+            <input
+              type="checkbox"
+              id="darkModeToggle"
+              checked={darkMode}
+              onChange={toggleDarkMode}
+              className="opacity-0 w-0 h-0 absolute"
+            />
+            <span className="slider block w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full">
+              <span
+                className={`dot block w-6 h-6 bg-white rounded-full shadow-md transform transition-transform ${
+                  darkMode ? "translate-x-6" : "translate-x-0"
+                }`}
+              >
+                {/* The icons will slide with the dot */}
+                <span
+                  className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    darkMode ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <FaSun className="text-purple-500" />
+                </span>
+                <span
+                  className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    darkMode ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <FaMoon className="text-purple-500" />
+                </span>
+              </span>
+            </span>
+          </label>
+        </div>
       </div>
 
       {/* Content Area */}

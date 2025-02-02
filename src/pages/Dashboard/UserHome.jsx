@@ -21,12 +21,12 @@ const UserHome = () => {
   console.log(userInfo); // This will help check the response
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 motion-safe:transform motion-safe:translate-x-0 motion-safe:opacity-100">
       <div className="max-w-4xl mx-auto p-6">
         {/* Welcome Section */}
         <h2 className="text-4xl font-semibold text-gray-900 dark:text-white">
           Welcome back,{" "}
-          <span className="text-orange-600">{user?.displayName || "User"}</span>
+          <span className="text-purple-600">{user?.displayName || "User"}</span>
         </h2>
 
         <div className="mt-6 flex items-center space-x-6">
@@ -45,7 +45,9 @@ const UserHome = () => {
             <p>Email: {user?.email || "Not available"}</p>
             <p>
               Badge:{" "}
-              <span className="font-semibold text-orange-600">{userInfo?.badge || "N/A"}</span>
+              <span className="font-semibold text-purple-600">
+                {userInfo?.badge || "N/A"}
+              </span>
             </p>
           </div>
         </div>
@@ -60,7 +62,7 @@ const UserHome = () => {
               Explore the meals you've requested.
             </p>
             <Link to="/dashboard/requestedMeals">
-              <button className="mt-4 bg-orange-600 text-white py-2 px-6 rounded-lg hover:bg-orange-700 transition-colors focus:outline-none">
+              <button className="mt-4 bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none">
                 View Meals
               </button>
             </Link>
@@ -74,7 +76,7 @@ const UserHome = () => {
               Check out the reviews you've written.
             </p>
             <Link to="/dashboard/myReviews">
-              <button className="mt-4 bg-orange-600 text-white py-2 px-6 rounded-lg hover:bg-orange-700 transition-colors focus:outline-none">
+              <button className="mt-4 bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none">
                 View Reviews
               </button>
             </Link>
@@ -88,7 +90,7 @@ const UserHome = () => {
               Keep track of your past payments and their status.
             </p>
             <Link to="/dashboard/paymentHistory">
-              <button className="mt-4 bg-orange-600 text-white py-2 px-6 rounded-lg hover:bg-orange-700 transition-colors focus:outline-none">
+              <button className="mt-4 bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none">
                 View Payments
               </button>
             </Link>
@@ -102,7 +104,7 @@ const UserHome = () => {
               {cart.length}
             </p>
             <Link to="/dashboard/cart">
-              <button className="mt-4 bg-orange-600 text-white py-2 px-6 rounded-lg hover:bg-orange-700 transition-colors focus:outline-none">
+              <button className="mt-4 bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none">
                 View Cart
               </button>
             </Link>

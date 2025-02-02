@@ -11,117 +11,129 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const UpdateItem = () => {
   const { name, category, recipe, price, _id } = useLoaderData();
-
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
   const onSubmit = async (data) => {
-    const imageFile = { image: data.image[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    if (res.data.success) {
-      const mealItem = {
-        name: data.name,
-        category: data.category,
-        price: parseFloat(data.price),
-        recipe: data.recipe,
-        image: res.data.data.display_url,
-      };
-      const mealRes = await axiosSecure.patch(`/meal/${_id}`, mealItem);
-      if (mealRes.data.modifiedCount > 0) {
-        reset();
+    const imageFile = data.image[0];
+    
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      try {
+        const res = await axiosPublic.post(image_hosting_api, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        if (res.data.success) {
+          const updatedMeal = {
+            name: data.name,
+            category: data.category,
+            price: parseFloat(data.price),
+            recipe: data.recipe,
+            image: res.data.data.display_url,
+          };
+
+          const mealRes = await axiosSecure.patch(`/meal/${_id}`, updatedMeal);
+          if (mealRes.data.modifiedCount > 0) {
+            reset();
+            Swal.fire({
+              title: "Updated!",
+              text: `${data.name} has been updated successfully.`,
+              icon: "success",
+              confirmButtonText: "Close",
+            });
+          }
+        }
+      } catch (error) {
         Swal.fire({
-          title: `${data.name} updated!`,
-          text: "Item updated successfully",
-          icon: "success",
-          confirmButtonText: "Close",
+          title: "Error!",
+          text: "Failed to upload the image. Try again.",
+          icon: "error",
         });
       }
     }
   };
 
   return (
-    <div>
-      <SectionTitle
-        heading="UPDATE AN ITEM"
-        subHeading="---What's cooking?---"
-      ></SectionTitle>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-control w-full my-6">
-            <div className="label">
-              <span className="label-text">Recipe Name*</span>
-            </div>
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300 p-6">
+      <SectionTitle heading="UPDATE AN ITEM" subHeading="--- What's cooking? ---" />
+
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-all duration-300">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Recipe Name */}
+          <div>
+            <label className="block text-gray-700 dark:text-white mb-2">Recipe Name*</label>
             <input
               {...register("name", { required: true })}
               type="text"
               defaultValue={name}
-              placeholder="Recipe Name"
+              placeholder="Enter Recipe Name"
+              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
               required
-              className="input input-bordered w-full"
             />
-          </label>
+          </div>
 
-          <div className="flex gap-6">
-            <label className="form-control w-full my-6">
-              <div className="label">
-                <span className="label-text">Category Name*</span>
-              </div>
+          {/* Category & Price */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-gray-700 dark:text-white mb-2">Category*</label>
               <select
-                defaultValue={category}
                 {...register("category", { required: true })}
-                className="select select-bordered w-full"
+                defaultValue={category}
+                className="select select-bordered w-full dark:bg-gray-700 dark:text-white"
               >
-                <option disabled value="default">
-                  Select a category
-                </option>
+                <option disabled value="default">Select a category</option>
                 <option value="salad">Salad</option>
                 <option value="pizza">Pizza</option>
                 <option value="soup">Soup</option>
                 <option value="dessert">Desserts</option>
                 <option value="drinks">Drinks</option>
               </select>
-            </label>
-            <label className="form-control w-full my-6">
-              <div className="label">
-                <span className="label-text">Price*</span>
-              </div>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 dark:text-white mb-2">Price*</label>
               <input
                 {...register("price", { required: true })}
                 type="number"
-                placeholder="Price"
                 defaultValue={price}
-                className="input input-bordered w-full"
+                placeholder="Enter Price"
+                className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
               />
-            </label>
+            </div>
           </div>
 
-          <label className="form-control">
-            <div className="label">
-              <span className="label-text">Recipe Details</span>
-            </div>
+          {/* Recipe Details */}
+          <div>
+            <label className="block text-gray-700 dark:text-white mb-2">Recipe Details*</label>
             <textarea
-              defaultValue={recipe}
               {...register("recipe", { required: true })}
-              className="textarea textarea-bordered h-24"
-              placeholder="Recipe Details"
+              defaultValue={recipe}
+              placeholder="Enter Recipe Details"
+              className="textarea textarea-bordered w-full dark:bg-gray-700 dark:text-white"
+              rows="4"
             ></textarea>
-          </label>
+          </div>
 
-          <div className="form-control w-full my-6">
+          {/* Image Upload */}
+          <div>
+            <label className="block text-gray-700 dark:text-white mb-2">Upload Image*</label>
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full max-w-xs"
+              className="file-input w-full max-w-xs dark:bg-gray-700 dark:text-white"
             />
           </div>
 
-          <button className="btn">
-            Update Item <FaUtensils></FaUtensils>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="btn bg-purple-500 text-white hover:bg-purple-600 rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2"
+          >
+            Update Item <FaUtensils />
           </button>
         </form>
       </div>
