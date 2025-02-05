@@ -16,7 +16,7 @@ const Membership = () => {
 
   useEffect(() => {
     // Fetch the membership plans from the API
-    fetch("http://localhost:5000/membership")
+    fetch("https://hotel-management-server-one.vercel.app/membership")
       .then((response) => response.json())
       .then((data) => {
         // Filter out the 'Bronze Plan'

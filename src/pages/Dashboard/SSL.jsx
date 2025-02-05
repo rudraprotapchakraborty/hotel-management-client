@@ -25,7 +25,7 @@ const SSL = () => {
         status: "pending",
       };
 
-      const response = await axios.post("http://localhost:5000/create-ssl-payment", payment);
+      const response = await axios.post("https://hotel-management-server-one.vercel.app/create-ssl-payment", payment);
 
       if (response.data?.gatewayUrl) {
         window.location.replace(response.data.gatewayUrl);

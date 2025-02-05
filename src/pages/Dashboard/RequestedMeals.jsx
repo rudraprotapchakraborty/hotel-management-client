@@ -12,7 +12,7 @@ const RequestedMeals = () => {
     const fetchRequestedMeals = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/requests?email=${user.email}`
+          `https://hotel-management-server-one.vercel.app/requests?email=${user.email}`
         );
         if (!response.ok) {
           throw new Error(

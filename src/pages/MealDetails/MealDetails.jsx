@@ -20,7 +20,7 @@ const MealDetails = () => {
   useEffect(() => {
     const fetchMealData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/meal/${id}`);
+        const response = await fetch(`https://hotel-management-server-one.vercel.app/meal/${id}`);
         if (!response.ok) {
           throw new Error(
             `Failed to fetch meal data. Status: ${response.status}`
@@ -47,7 +47,7 @@ const MealDetails = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/meal/${id}`, {
+      const res = await fetch(`https://hotel-management-server-one.vercel.app/meal/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({}),
@@ -80,7 +80,7 @@ const MealDetails = () => {
     }
   
     try {
-      const res = await fetch(`http://localhost:5000/meal/${id}`, {
+      const res = await fetch(`https://hotel-management-server-one.vercel.app/meal/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +130,7 @@ const MealDetails = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/requests`, {
+      const res = await fetch(`https://hotel-management-server-one.vercel.app/requests`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),

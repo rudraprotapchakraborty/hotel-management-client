@@ -17,7 +17,7 @@ const MyReviews = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:5000/meal/");
+        const response = await fetch("https://hotel-management-server-one.vercel.app/meal/");
         if (!response.ok) {
           throw new Error(`Failed to fetch meal data. Status: ${response.status}`);
         }

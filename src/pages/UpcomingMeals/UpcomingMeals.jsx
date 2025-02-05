@@ -14,7 +14,7 @@ const UpcomingMeals = () => {
     // Fetching upcoming meals where 'upcoming' is true
     axiosSecure
       .get(
-        "http://localhost:5000/meal?upcoming=true"
+        "https://hotel-management-server-one.vercel.app/meal?upcoming=true"
       )
       .then((response) => {
         setUpcomingMeals(response.data);
