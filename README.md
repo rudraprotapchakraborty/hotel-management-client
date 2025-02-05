@@ -1,12 +1,12 @@
-# Hostel Management System - Client Side
+# Hotel Management System - Client Side
 
 ## Overview
-This repository contains the client-side implementation of the **Hostel Management System** using React.js. The client allows students and administrators to interact with the system via a user-friendly interface. Students can log in, view meal details, and provide reviews, while administrators can manage meal data, reviews, and student information.
+This repository contains the client-side implementation of the **Hotel Management System** using React.js. The client allows students and administrators to interact with the system via a user-friendly interface. Students can log in, view meal details, and provide reviews, while administrators can manage meal data, reviews, and student information.
 
 ---
 
 ## Screenshot
-![Hostel Management System](/src/assets/screenshot.png)
+![Hotel Management System](/src/assets/screenshot.png)
 
 ---
 
@@ -58,8 +58,8 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/hostel-management-client.git
-   cd hostel-management-client
+   git clone https://github.com/rudraprotapchakraborty/hotel-management-client.git
+   cd hotel-management-client
    ```
 
 2. **Install dependencies:**
