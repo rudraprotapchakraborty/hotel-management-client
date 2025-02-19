@@ -3,11 +3,14 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useCart from "../../hooks/useCart";
+import { FaUser } from "react-icons/fa"; // Font Awesome User Icon
+import { useState } from "react";
 
 const UserHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [cart] = useCart();
+  const [imageError, setImageError] = useState(false); // Track if image fails to load
 
   // Fetching user-related data (e.g., order history and user badge)
   const { data: userInfo = {} } = useQuery({
@@ -18,10 +21,10 @@ const UserHome = () => {
     },
   });
 
-  console.log(userInfo); // This will help check the response
+  console.log(userInfo); // Debugging response
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 motion-safe:transform motion-safe:translate-x-0 motion-safe:opacity-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-4xl mx-auto p-6">
         {/* Welcome Section */}
         <h2 className="text-4xl font-semibold text-gray-900 dark:text-white">
@@ -30,15 +33,18 @@ const UserHome = () => {
         </h2>
 
         <div className="mt-6 flex items-center space-x-6">
-          {/* Profile Image */}
-          {user?.photoURL ? (
+          {/* Profile Image with Error Handling */}
+          {user?.photoURL && !imageError ? (
             <img
               src={user.photoURL}
               alt="Profile"
               className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+              onError={() => setImageError(true)} // Set error state when image fails
             />
           ) : (
-            <div className="w-20 h-20 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            <div className="w-20 h-20 flex items-center justify-center bg-gray-300 dark:bg-gray-600 rounded-full">
+              <FaUser className="w-10 h-10 text-gray-500 dark:text-gray-300" />
+            </div>
           )}
 
           <div className="text-sm text-gray-800 dark:text-gray-200">
