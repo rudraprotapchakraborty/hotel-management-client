@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import SectionTitle from "../../components/SectionTitle";
+import Spinner from "../../components/Spinner";
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -49,9 +50,7 @@ const MyReviews = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-12 h-12 border-4 border-orange-500 border-dotted rounded-full animate-spin"></div>
-      </div>
+      <Spinner></Spinner>
     );
   }
 

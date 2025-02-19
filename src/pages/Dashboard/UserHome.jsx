@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useCart from "../../hooks/useCart";
 import { FaUser } from "react-icons/fa"; // Font Awesome User Icon
 import { useState } from "react";
+import Spinner from "../../components/Spinner"
 
 const UserHome = () => {
   const { user } = useAuth();
@@ -13,13 +14,17 @@ const UserHome = () => {
   const [imageError, setImageError] = useState(false); // Track if image fails to load
 
   // Fetching user-related data (e.g., order history and user badge)
-  const { data: userInfo = {} } = useQuery({
+  const { data: userInfo = {}, isLoading } = useQuery({
     queryKey: ["userInfo", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user?.email}`);
       return res.data;
     },
   });
+
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">

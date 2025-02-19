@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import SectionTitle from "../../components/SectionTitle";
+import Spinner from "../../components/Spinner";
 
 const RequestedMeals = () => {
   const { user } = useAuth(); // Get logged-in user info
@@ -35,7 +36,7 @@ const RequestedMeals = () => {
 
   if (loading) {
     return (
-      <div className="text-center text-lg text-gray-700">Loading...</div>
+      <Spinner></Spinner>
     );
   }
 

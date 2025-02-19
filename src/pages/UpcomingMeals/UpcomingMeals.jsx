@@ -21,16 +21,16 @@ const UpcomingMeals = () => {
         setUpcomingMeals(response.data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching upcoming meals:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to load upcoming meals.",
-          icon: "error",
-          confirmButtonText: "Try Again",
-        });
-        setLoading(false);
-      });
+      // .catch((error) => {
+      //   console.error("Error fetching upcoming meals:", error);
+      //   Swal.fire({
+      //     title: "Error!",
+      //     text: "Failed to load upcoming meals.",
+      //     icon: "error",
+      //     confirmButtonText: "Try Again",
+      //   });
+      //   setLoading(false);
+      // });
   }, [axiosSecure]);
 
   return (

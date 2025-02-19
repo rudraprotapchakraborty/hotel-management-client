@@ -3,11 +3,12 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import SectionTitle from "../../components/SectionTitle";
+import Spinner from "../../components/Spinner"
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
@@ -70,6 +71,10 @@ const AllUsers = () => {
       }
     });
   };
+
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">

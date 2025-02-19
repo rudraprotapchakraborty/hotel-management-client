@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useMeal from "../../hooks/useMeal";
 import { FaUser } from "react-icons/fa"; // Import Font Awesome User Icon
 import { useState } from "react";
+import Spinner from "../../components/Spinner"
 
 const AdminHome = () => {
     const { user } = useAuth();
@@ -12,13 +13,17 @@ const AdminHome = () => {
     const [meal] = useMeal();
     const [imageError, setImageError] = useState(false); // Track if image fails
 
-    const { data: users = [] } = useQuery({
+    const { data: users = [], isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
             const res = await axiosSecure.get("/users");
             return res.data;
         },
     });
+
+    if(isLoading){
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">

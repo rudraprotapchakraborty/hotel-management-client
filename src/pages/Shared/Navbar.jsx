@@ -40,9 +40,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Logo" className="w-11 filter drop-shadow-[0_0_6px_white] pb-2" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-9 md:w-11 filter drop-shadow-[0_0_6px_white] pb-2"
+          />
           <h1
-            className={`text-lg md:text-2xl font-bold ${
+            className={`text-sm md:text-2xl font-bold ${
               darkMode ? "text-orange-400" : "text-orange-600"
             }`}
           >
@@ -149,13 +153,13 @@ const Navbar = () => {
                 <img
                   src={user.photoURL}
                   alt="Profile"
-                  className="w-10 h-10 rounded-full cursor-pointer"
+                  className="w-7 h-7 md:w-10 md:h-10 rounded-full cursor-pointer"
                   onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                   onError={() => setImageError(true)}
                 />
               ) : (
                 <div
-                  className="w-10 h-10 flex items-center justify-center bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer"
+                  className="w-7 h-7 md:w-10 md:h-10 flex items-center justify-center bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer"
                   onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                 >
                   <FaUser className="w-6 h-6 text-gray-500 dark:text-gray-300" />
@@ -183,7 +187,7 @@ const Navbar = () => {
                   </NavLink>
                   <button
                     onClick={handleLogOut}
-                    className="w-full text-left px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
+                    className="w-full text-red-500 font-semibold text-left px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
                   >
                     Logout
                   </button>
@@ -250,6 +254,21 @@ const Navbar = () => {
                   Meals
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/upcomingMeals"
+                  className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Upcoming Meals
+                </NavLink>
+              </li>
+              <button
+                onClick={handleLogOut}
+                className="w-full text-left text-red-500 font-semibold px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
+              >
+                Logout
+              </button>
             </ul>
           )}
         </div>

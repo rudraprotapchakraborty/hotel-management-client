@@ -2,18 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import SectionTitle from "../../components/SectionTitle";
+import Spinner from "../../components/Spinner";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading } = useQuery({
     queryKey: ["payments", user.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments/${user.email}`);
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-xl shadow-2xl transition-all duration-300 motion-safe:transform motion-safe:translate-x-0 motion-safe:opacity-100 min-h-screen">
