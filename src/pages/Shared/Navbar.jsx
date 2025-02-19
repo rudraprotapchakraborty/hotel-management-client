@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { FaMoon, FaSun, FaBell, FaShoppingCart } from "react-icons/fa";
+import { FaMoon, FaSun, FaBell, FaShoppingCart, FaUser } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAdmin from "../../hooks/useAdmin";
 import logo from "../../../public/logo.png";
@@ -15,6 +15,7 @@ const Navbar = () => {
   const profileRef = useRef(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [cart] = useCart();
+  const [imageError, setImageError] = useState(false); // Track image load error
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -91,9 +92,7 @@ const Navbar = () => {
           {/* Notification Icon */}
           <li>
             <button className="relative text-lg">
-              <FaBell
-                className={darkMode ? "text-gray-300" : "text-gray-700"}
-              />
+              <FaBell className={darkMode ? "text-gray-300" : "text-gray-700"} />
             </button>
           </li>
 
@@ -126,12 +125,23 @@ const Navbar = () => {
           {/* Profile or Join Us */}
           {user ? (
             <div className="relative" ref={profileRef}>
-              <img
-                src={user.photoURL || ""}
-                alt="Profile"
-                className="w-10 h-10 rounded-full cursor-pointer"
-                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-              />
+              {user.photoURL && !imageError ? (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                  onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div
+                  className="w-10 h-10 flex items-center justify-center bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer"
+                  onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                >
+                  <FaUser className="w-6 h-6 text-gray-500 dark:text-gray-300" />
+                </div>
+              )}
+
               {profileMenuOpen && (
                 <div
                   className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 z-50 ${
@@ -144,9 +154,7 @@ const Navbar = () => {
                     {user.displayName}
                   </span>
                   <NavLink
-                    to={
-                      isAdmin ? "/dashboard/adminHome" : "/dashboard/userHome"
-                    }
+                    to={isAdmin ? "/dashboard/adminHome" : "/dashboard/userHome"}
                     className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-lg"
                   >
                     Dashboard
@@ -197,9 +205,7 @@ const Navbar = () => {
           {isMenuOpen && (
             <ul
               className={`absolute right-4 top-16 w-56 rounded-lg shadow-md py-2 ${
-                darkMode
-                  ? "bg-gray-800 text-gray-200"
-                  : "bg-white text-gray-700"
+                darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"
               }`}
             >
               <li>
@@ -218,15 +224,6 @@ const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Meals
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/upcomingMeals"
-                  className="block px-4 py-2 hover:bg-orange-500 hover:text-white rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Upcoming Meals
                 </NavLink>
               </li>
             </ul>
