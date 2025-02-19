@@ -18,6 +18,9 @@ const Testimonials = () => {
       });
   }, []);
 
+  // Duplicate meals if there are less than 3 to prevent the loop warning
+  const duplicatedMeals = meals.length >= 3 ? meals : [...meals, ...meals];
+
   return (
     <section className="my-20 px-6 md:px-16">
       <SectionTitle heading={"Reviews"} subHeading={"What Our Customers Are Saying"} />
@@ -28,10 +31,10 @@ const Testimonials = () => {
         className="mySwiper"
         spaceBetween={30}
         slidesPerView={1}
-        loop={true}
+        loop={duplicatedMeals.length >= 3} // Enable loop only if there are enough slides
       >
-        {meals.map((meal) => (
-          <SwiperSlide key={meal._id}>
+        {duplicatedMeals.map((meal, index) => (
+          <SwiperSlide key={`${meal._id}-${index}`}>
             <div className="flex flex-col items-center mx-6 md:mx-24 mt-16 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
               <img src={meal.image} alt={meal.name} className="w-full h-56 object-cover rounded-lg" />
               <Rating style={{ maxWidth: 180 }} value={meal.rating} readOnly />
