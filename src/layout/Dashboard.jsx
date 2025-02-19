@@ -23,7 +23,7 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
       {/* Sidebar */}
-      <div className="w-64 bg-orange-100 dark:bg-gray-800 p-6 rounded-l-xl shadow-2xl">
+      <div className="w-64 bg-orange-300 dark:bg-gray-800 p-6 shadow-2xl">
         <ul className="space-y-4 text-gray-900 dark:text-white">
           {/* Admin Links */}
           {isAdmin ? (
