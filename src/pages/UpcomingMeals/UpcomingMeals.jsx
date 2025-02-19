@@ -4,6 +4,7 @@ import MealItem from "../Shared/MealItem"; // You can reuse MealItem here
 import SectionTitle from "../../components/SectionTitle"; // Optional section title for a header
 import useAxiosSecure from "../../hooks/useAxiosSecure"; // Assuming useAxiosSecure is handling secure axios requests
 import { Helmet } from "react-helmet-async";
+import Spinner from "../../components/Spinner"
 
 const UpcomingMeals = () => {
   const [upcomingMeals, setUpcomingMeals] = useState([]);
@@ -47,9 +48,7 @@ const UpcomingMeals = () => {
 
       {/* Loading State */}
       {loading ? (
-        <div className="text-center py-8 text-gray-600 dark:text-white">
-          Loading upcoming meals...
-        </div>
+        <Spinner></Spinner>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-6">
           {upcomingMeals.length > 0 ? (

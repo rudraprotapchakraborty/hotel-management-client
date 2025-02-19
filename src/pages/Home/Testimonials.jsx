@@ -6,9 +6,11 @@ import { Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import Spinner from "../../components/Spinner";
 
 const Testimonials = () => {
   const [meals, setMeals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://hotel-management-server-one.vercel.app/meal")
@@ -16,10 +18,15 @@ const Testimonials = () => {
       .then((data) => {
         setMeals(data);
       });
+      setLoading(false)
   }, []);
 
   // Duplicate meals if there are less than 3 to prevent the loop warning
   const duplicatedMeals = meals.length >= 3 ? meals : [...meals, ...meals];
+
+  if (loading){
+    return <Spinner></Spinner>
+  }
 
   return (
     <section className="my-20 px-6 md:px-16">

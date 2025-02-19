@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import SectionTitle from "../../components/SectionTitle";
 
 const MyReviews = () => {
-  const { user } = useAuth(); // Get logged-in user from context
+  const { user } = useAuth();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,6 @@ const MyReviews = () => {
         }
         const meals = await response.json();
 
-        // Filter reviews where the email matches the logged-in user's email
         const userReviews = [];
         meals.forEach((meal) => {
           meal.reviews.forEach((review) => {
@@ -49,7 +48,11 @@ const MyReviews = () => {
   }, [user]);
 
   if (loading) {
-    return <div className="text-center text-lg text-gray-700">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="w-12 h-12 border-4 border-orange-500 border-dotted rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   if (error) {
@@ -58,10 +61,7 @@ const MyReviews = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 rounded-xl shadow-2xl transition-all duration-300 min-h-screen">
-      <SectionTitle
-        heading="My Reviews"
-        subHeading="--- What's cooking? ---"
-      />
+      <SectionTitle heading="My Reviews" subHeading="--- What's cooking? ---" />
 
       {reviews.length > 0 ? (
         <div className="overflow-x-auto mt-6">

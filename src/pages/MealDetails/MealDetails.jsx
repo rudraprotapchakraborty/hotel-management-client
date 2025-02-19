@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Spinner from "../../components/Spinner"
 
 const MealDetails = () => {
   const { user } = useAuth(); // Get user from context
@@ -154,7 +155,7 @@ const MealDetails = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner></Spinner>;
   }
 
   if (error) {

@@ -19,21 +19,23 @@ const Banner = () => {
   ];
 
   return (
-    <Carousel
-      autoPlay
-      infiniteLoop
-      showThumbs={true}
-      showStatus={false}
-      showIndicators={false}
-      interval={3000}
-      className="max-w-5xl mx-auto"
-    >
-      {images.map((image, index) => (
-        <div key={index}>
-          <img src={image.src} alt={image.alt} className="rounded-lg" />
-        </div>
-      ))}
-    </Carousel>
+    <div className="w-full px-4 dark:bg-gray-900">
+      <Carousel
+        autoPlay
+        infiniteLoop
+        showThumbs={true} // Keeping thumbnails as you wanted
+        showStatus={false}
+        showIndicators={false}
+        interval={3000}
+        className="max-w-5xl mx-auto"
+      >
+        {images.map((image, index) => (
+          <div key={index}>
+            <img src={image.src} alt={image.alt} className="rounded-lg max-w-full h-auto" />
+          </div>
+        ))}
+      </Carousel>
+    </div>
   );
 };
 

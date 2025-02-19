@@ -21,8 +21,6 @@ const UserHome = () => {
     },
   });
 
-  console.log(userInfo); // Debugging response
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-4xl mx-auto p-6">
