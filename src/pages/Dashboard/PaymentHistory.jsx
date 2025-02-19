@@ -26,7 +26,7 @@ const PaymentHistory = () => {
       {payments.length > 0 ? (
         <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-all duration-300">
           <table className="table table-zebra w-full text-gray-900 dark:text-white">
-            <thead className="bg-purple-600 text-white">
+            <thead className="bg-orange-600 text-white">
               <tr>
                 <th className="py-3 px-6">#</th>
                 <th className="py-3 px-6">Price</th>

@@ -16,13 +16,13 @@ const Payment = () => {
 
             <div className="flex justify-center gap-4 mb-6">
                 <button
-                    className={`px-6 py-3 rounded-lg font-semibold shadow-md transition-all duration-200 ${paymentMethod === "stripe" ? "bg-purple-600 text-white" : "bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
+                    className={`px-6 py-3 rounded-lg font-semibold shadow-md transition-all duration-200 ${paymentMethod === "stripe" ? "bg-orange-600 text-white" : "bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
                     onClick={() => setPaymentMethod("stripe")}
                 >
                     Pay with Stripe
                 </button>
                 <button
-                    className={`px-6 py-3 rounded-lg font-semibold shadow-md transition-all duration-200 ${paymentMethod === "ssl" ? "bg-purple-600 text-white" : "bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
+                    className={`px-6 py-3 rounded-lg font-semibold shadow-md transition-all duration-200 ${paymentMethod === "ssl" ? "bg-orange-600 text-white" : "bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
                     onClick={() => setPaymentMethod("ssl")}
                 >
                     Pay with SSLCommerz

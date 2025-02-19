@@ -103,7 +103,7 @@ const AllUsers = () => {
                       ) : (
                         <button
                           onClick={() => handleMakeAdmin(user)}
-                          className="btn bg-purple-500 text-white hover:bg-purple-600 rounded-lg py-2 px-4 transition-all duration-300"
+                          className="btn bg-orange-500 text-white hover:bg-orange-600 rounded-lg py-2 px-4 transition-all duration-300"
                         >
                           <FaUsers className="text-white text-xl" />
                         </button>

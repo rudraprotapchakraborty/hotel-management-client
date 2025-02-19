@@ -66,7 +66,7 @@ const MyReviews = () => {
       {reviews.length > 0 ? (
         <div className="overflow-x-auto mt-6">
           <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 shadow-lg rounded-lg">
-            <thead className="bg-purple-600 text-white">
+            <thead className="bg-orange-600 text-white">
               <tr>
                 <th className="py-3 px-6 text-left">#</th>
                 <th className="py-3 px-6">Meal Image</th>

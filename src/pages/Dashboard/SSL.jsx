@@ -53,7 +53,7 @@ const SSL = () => {
         <button 
           onClick={handleCreatePayment}
           className={`w-full py-3 px-6 mt-4 rounded-lg font-semibold transition-all duration-200 shadow-lg
-            ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700 active:bg-purple-800"} text-white`}
+            ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-orange-600 hover:bg-orange-700 active:bg-orange-800"} text-white`}
           disabled={loading}
         >
           {loading ? "Processing..." : "Pay Now"}

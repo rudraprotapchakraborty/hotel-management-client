@@ -101,7 +101,7 @@ const CheckoutForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="text-lg font-medium">Total Price: <span className="font-bold">${totalPrice.toFixed(2)}</span></label>
-          <div className="p-4 mt-3 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-inner focus:ring-2 focus:ring-purple-500">
+          <div className="p-4 mt-3 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-inner focus:ring-2 focus:ring-orange-500">
             <CardElement className="focus:outline-none" />
           </div>
         </div>
@@ -113,7 +113,7 @@ const CheckoutForm = () => {
           type="submit"
           disabled={isLoading || !stripe || !clientSecret}
           className={`w-full py-3 px-6 mt-4 rounded-lg font-semibold transition-all duration-200 shadow-lg 
-          ${isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700 active:bg-purple-800"} text-white`}
+          ${isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-orange-600 hover:bg-orange-700 active:bg-orange-800"} text-white`}
         >
           {isLoading ? "Processing..." : "Pay Now"}
         </button>

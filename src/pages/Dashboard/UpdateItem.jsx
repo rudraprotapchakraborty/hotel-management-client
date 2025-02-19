@@ -131,7 +131,7 @@ const UpdateItem = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn bg-purple-500 text-white hover:bg-purple-600 rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2"
+            className="btn bg-orange-500 text-white hover:bg-orange-600 rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2"
           >
             Update Item <FaUtensils />
           </button>

@@ -58,7 +58,7 @@ const Cart = () => {
         </h2>
         {cart.length > 0 ? (
           <Link to="/dashboard/payment">
-            <button className="btn text-white bg-purple-600 hover:bg-purple-700 transition-all duration-200">
+            <button className="btn text-white bg-orange-600 hover:bg-orange-700 transition-all duration-200">
               Pay Now
             </button>
           </Link>
@@ -73,7 +73,7 @@ const Cart = () => {
       <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-all duration-300">
         {cart.length > 0 ? (
           <table className="min-w-full table-auto text-gray-900 dark:text-white">
-            <thead className="bg-purple-600 text-white">
+            <thead className="bg-orange-600 text-white">
               <tr>
                 <th className="py-3 px-6">#</th>
                 <th className="py-3 px-6">Image</th>

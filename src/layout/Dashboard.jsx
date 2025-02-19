@@ -23,7 +23,7 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
       {/* Sidebar */}
-      <div className="w-64 bg-purple-100 dark:bg-gray-800 p-6 rounded-l-xl shadow-2xl">
+      <div className="w-64 bg-orange-100 dark:bg-gray-800 p-6 rounded-l-xl shadow-2xl">
         <ul className="space-y-4 text-gray-900 dark:text-white">
           {/* Admin Links */}
           {isAdmin ? (
@@ -33,7 +33,7 @@ const Dashboard = () => {
                   to="/dashboard/adminHome"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -46,7 +46,7 @@ const Dashboard = () => {
                   to="/dashboard/addItems"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -59,7 +59,7 @@ const Dashboard = () => {
                   to="/dashboard/manageItems"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -72,7 +72,7 @@ const Dashboard = () => {
                   to="/dashboard/users"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -89,7 +89,7 @@ const Dashboard = () => {
                   to="/dashboard/userHome"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -102,7 +102,7 @@ const Dashboard = () => {
                   to="/dashboard/requestedMeals"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -115,7 +115,7 @@ const Dashboard = () => {
                   to="/dashboard/myReviews"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -128,7 +128,7 @@ const Dashboard = () => {
                   to="/dashboard/cart"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -141,7 +141,7 @@ const Dashboard = () => {
                   to="/dashboard/paymentHistory"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      isActive ? "bg-purple-500" : ""
+                      isActive ? "bg-orange-500" : ""
                     }`
                   }
                 >
@@ -195,14 +195,14 @@ const Dashboard = () => {
                     darkMode ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <FaSun className="text-purple-500" />
+                  <FaSun className="text-orange-500" />
                 </span>
                 <span
                   className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                     darkMode ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <FaMoon className="text-purple-500" />
+                  <FaMoon className="text-orange-500" />
                 </span>
               </span>
             </span>

@@ -50,7 +50,7 @@ const AdminHome = () => {
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Meal Management</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">Add, update, or remove meals from the menu.</p>
                         <Link to="/dashboard/manageItems">
-                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
+                            <button className="mt-4 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none transition-all w-full">
                                 Manage Meals
                             </button>
                         </Link>
@@ -60,7 +60,7 @@ const AdminHome = () => {
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Add New Meal</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">Add new meal options to the menu.</p>
                         <Link to="/dashboard/addItems">
-                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
+                            <button className="mt-4 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none transition-all w-full">
                                 Add Meal
                             </button>
                         </Link>
@@ -70,7 +70,7 @@ const AdminHome = () => {
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">User Management</h3>
                         <p className="mt-2 text-gray-600 dark:text-gray-400">View and manage user accounts and their roles.</p>
                         <Link to="/dashboard/users">
-                            <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none transition-all w-full">
+                            <button className="mt-4 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 focus:outline-none transition-all w-full">
                                 Manage Users
                             </button>
                         </Link>
